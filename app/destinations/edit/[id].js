@@ -1,31 +1,44 @@
 import { router, useLocalSearchParams } from 'expo-router';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import DestinationForm from '../../../components/DestinationForm';
+import StatusView from '../../../components/StatusView';
+import { getDestinationById, updateDestination } from '../../../services/destinationService';
 
 export default function EditDestinationScreen() {
   const { id } = useLocalSearchParams();
+  const [destination, setDestination] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function loadDestination() {
+      try {
+        const data = await getDestinationById(id);
+        setDestination(data);
+      } catch (err) {
+        console.log(err);
+        setError('Could not load this destination. Check your internet connection.');
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadDestination();
+  }, [id]);
+
+  async function handleUpdate(data) {
+    await updateDestination(id, data);
+    router.back();
+  }
+
+  if (loading) {
+    return <StatusView loading />;
+  }
+
+  if (error || !destination) {
+    return <StatusView message={error || 'Destination not found.'} />;
+  }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Editing destination #{id}</Text>
-      <Text style={styles.note}>The edit form comes in Phase 5.</Text>
-      <Button title="Cancel" onPress={() => router.back()} />
-    </View>
+    <DestinationForm initialValues={destination} submitLabel="Save Changes" onSubmit={handleUpdate} />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: 24,
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 8,
-  },
-  note: {
-    fontSize: 16,
-    marginBottom: 16,
-  },
-});

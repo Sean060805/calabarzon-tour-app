@@ -1,12 +1,14 @@
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
   orderBy,
   query,
   serverTimestamp,
+  updateDoc,
 } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
@@ -35,4 +37,17 @@ export async function addDestination(data) {
     updatedAt: serverTimestamp(),
   });
   return newDoc.id;
+}
+
+// UPDATE destinations SET ... WHERE id = ?
+export async function updateDestination(id, data) {
+  await updateDoc(doc(db, COLLECTION, id), {
+    ...data,
+    updatedAt: serverTimestamp(),
+  });
+}
+
+// DELETE FROM destinations WHERE id = ?
+export async function deleteDestination(id) {
+  await deleteDoc(doc(db, COLLECTION, id));
 }

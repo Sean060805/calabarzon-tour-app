@@ -1,7 +1,8 @@
 import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { ActivityIndicator, Button, FlatList, StyleSheet, Text, View } from 'react-native';
+import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
 import DestinationCard from '../../components/DestinationCard';
+import StatusView from '../../components/StatusView';
 import colors from '../../constants/colors';
 import { getAllDestinations } from '../../services/destinationService';
 
@@ -30,19 +31,11 @@ export default function DestinationListScreen() {
   );
 
   if (loading) {
-    return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" color={colors.primary} />
-      </View>
-    );
+    return <StatusView loading />;
   }
 
   if (error) {
-    return (
-      <View style={styles.center}>
-        <Text style={styles.message}>{error}</Text>
-      </View>
-    );
+    return <StatusView message={error} />;
   }
 
   return (
@@ -65,13 +58,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
-  },
-  center: {
-    flex: 1,
-    backgroundColor: colors.background,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 24,
   },
   actions: {
     paddingHorizontal: 16,

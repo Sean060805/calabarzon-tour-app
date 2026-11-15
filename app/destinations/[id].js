@@ -1,8 +1,9 @@
-import { router, useLocalSearchParams } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { ActivityIndicator, Button, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
+import { useCallback, useState } from 'react';
+import { Alert, Button, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import StatusView from '../../components/StatusView';
 import colors from '../../constants/colors';
-import { getDestinationById } from '../../services/destinationService';
+import { deleteDestination, getDestinationById } from '../../services/destinationService';
 
 export default function DestinationDetailsScreen() {
   const { id } = useLocalSearchParams();
@@ -10,35 +11,52 @@ export default function DestinationDetailsScreen() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    async function loadDestination() {
-      try {
-        const data = await getDestinationById(id);
-        setDestination(data);
-      } catch (err) {
-        console.log(err);
-        setError('Could not load this destination. Check your internet connection.');
-      } finally {
-        setLoading(false);
+  // Runs every time this screen is shown, so changes from the Edit screen appear
+  useFocusEffect(
+    useCallback(() => {
+      async function loadDestination() {
+        try {
+          const data = await getDestinationById(id);
+          setDestination(data);
+          setError(null);
+        } catch (err) {
+          console.log(err);
+          setError('Could not load this destination. Check your internet connection.');
+        } finally {
+          setLoading(false);
+        }
       }
-    }
-    loadDestination();
-  }, [id]);
+      loadDestination();
+    }, [id])
+  );
 
-  if (loading) {
-    return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" color={colors.primary} />
-      </View>
+  function handleDelete() {
+    Alert.alert(
+      'Delete destination?',
+      `Are you sure you want to delete "${destination.name}"? This cannot be undone.`,
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Delete', style: 'destructive', onPress: confirmDelete },
+      ]
     );
   }
 
+  async function confirmDelete() {
+    try {
+      await deleteDestination(id);
+      router.back();
+    } catch (err) {
+      console.log(err);
+      Alert.alert('Could not delete', 'Please check your internet connection and try again.');
+    }
+  }
+
+  if (loading) {
+    return <StatusView loading />;
+  }
+
   if (error || !destination) {
-    return (
-      <View style={styles.center}>
-        <Text style={styles.message}>{error || 'Destination not found.'}</Text>
-      </View>
-    );
+    return <StatusView message={error || 'Destination not found.'} />;
   }
 
   return (
@@ -61,6 +79,9 @@ export default function DestinationDetailsScreen() {
         <View style={styles.button}>
           <Button title="Edit" onPress={() => router.push(`/destinations/edit/${id}`)} />
         </View>
+        <View style={styles.button}>
+          <Button title="Delete" color={colors.danger} onPress={handleDelete} />
+        </View>
       </View>
     </ScrollView>
   );
@@ -71,24 +92,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.card,
   },
-  center: {
-    flex: 1,
-    backgroundColor: colors.card,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 24,
-  },
-  message: {
-    fontSize: 16,
-    color: colors.textLight,
-    textAlign: 'center',
-  },
   image: {
     width: '100%',
     height: 240,
   },
   content: {
     padding: 20,
+    paddingBottom: 48,
   },
   name: {
     fontSize: 24,
@@ -115,6 +125,6 @@ const styles = StyleSheet.create({
     color: colors.text,
   },
   button: {
-    marginTop: 24,
+    marginTop: 16,
   },
 });
