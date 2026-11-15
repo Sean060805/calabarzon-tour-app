@@ -1,16 +1,23 @@
 # CLAUDE.md
 
-Follow PLAN.md. **Current phase: finishing Phase 8 (screenshots and name in README). Phases 0 to 7 are tested on the phone and pushed.**
+**Status: the midterm project (PLAN.md, build phases 0 to 8) is DONE, tested on the phone, and pushed. Next: Project Phase 2, the final project. It is not planned yet; Klyde will bring its requirements.**
 
-Still to do, in order:
-1. DONE: Klyde tested Phases 4 to 8 on the phone ("works"), pushed.
-2. DONE (2026-11-16, at Klyde's request): Claude saved all 15 destinations from `docs/destinations.md` to Firestore with a one-time script (not kept in the repo), with Wikimedia Commons photos (credits at the end of `docs/destinations.md`). All 15 have photos. Museo De La Salle was swapped for the Bonifacio Trial House (also a Museum, in Cavite) because Commons has no free photos of it.
-3. Klyde takes screenshots; add a Screenshots section to README.md (images in `docs/screenshots/`). Also add Klyde's name (and section, if needed) to README.md.
-4. Run PLAN.md's final test checklist, then final commit and push.
+Update the status line above at the end of every phase.
 
-Update the current phase line above at the end of every phase.
+## Where things stand (end of the midterm, 2026-11-16)
 
-Files added beyond PLAN.md's folder structure, on purpose: `components/AppButton.js`, `components/Chip.js`, `components/StatusView.js`, `constants/provinces.js`, and `docs/destinations.md` (content + sources for the Accuracy grade). `CategoryFilter` is used for both the category and province filters.
+- All CRUD, search, filters, and photo features in PLAN.md work on Klyde's Android phone and iPhone (Expo Go).
+- **Firestore has 15 real destinations, 3 per province, all with photos.** Claude added them with a one-time script at Klyde's request (the script is not in the repo); the text and sources are in `docs/destinations.md`, with Wikimedia Commons photo credits at the end. Museo De La Salle was swapped for the Bonifacio Trial House, because Commons has no free photos of the museum.
+- PLAN.md's README screenshots were skipped on purpose: the project is presented face to face. The README has no developer name yet; add it if Klyde gives one.
+- Before presenting: check the Taal Volcano alert level at phivolcs.dost.gov.ph and update that destination if it changed from Alert Level 1.
+- **The Firestore rules expire on January 31, 2027** (test-mode rules from PLAN.md Part A). If Phase 2 runs past that date, or adds login, the rules must be updated in the Firebase Console.
+- Files added beyond PLAN.md's folder structure, on purpose: `components/AppButton.js`, `components/Chip.js`, `components/StatusView.js`, `constants/provinces.js`, and `docs/destinations.md`. `CategoryFilter` is used for both the category and province filters.
+
+## What Klyde prefers (learned during the midterm)
+
+- Short, plain explanations to read, with no hard words ("just teach me and I will read it").
+- Klyde may ask for several phases at once. When asked, build them back to back with one commit per phase, then have Klyde test everything before pushing.
+- Klyde would rather have Claude do tedious work (like entering data) than spend an hour on it by hand.
 
 ## How to teach
 
@@ -25,7 +32,7 @@ Klyde wants to **learn React Native while building**, not just get finished code
 7. Write code in **JavaScript (.js)**, not TypeScript. Keep it beginner-readable: clear names, small components, short comments only where something isn't obvious.
 8. **Never use an Android emulator or iOS simulator.** Testing is on a real phone through Expo Go only.
 9. If a library is needed, install it with `npx expo install <package>` (not plain `npm install`) so its version matches Expo.
-10. Don't rush ahead. Don't do several phases in one go.
+10. Don't rush ahead. Don't do several phases in one go, unless Klyde asks for it.
 
 ## React for PHP developers (cheat sheet to use while teaching)
 
@@ -52,3 +59,5 @@ Klyde wants to **learn React Native while building**, not just get finished code
 - `npx expo-doctor` checks for version and config problems.
 - `npx expo login` crashes on Windows when it opens the browser (the `&` in the login URL breaks `cmd.exe start`). Workaround: `set BROWSER=none` (cmd) or `$env:BROWSER="none"` (PowerShell), then `npx expo login` and open the printed link by hand. Klyde must be logged in on both the CLI and the Expo Go app.
 - iOS 26 makes stack headers see-through by default when no header color is set, so content slides under them. `app/_layout.js` sets `headerTransparent: false` to prevent this.
+- `react-dom` is pinned to Expo's version (19.3.0, same as `react`). Without that, npm pulled in a newer `react-dom` and `npx expo install` failed with an ERESOLVE peer dependency error. If that error comes back, check that `react-dom` still matches `react`.
+- The Firestore reads in `services/destinationService.js` use `getDocsFromServer`/`getDocFromServer`, so that being offline shows an error instead of an empty list.

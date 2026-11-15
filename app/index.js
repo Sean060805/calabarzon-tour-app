@@ -20,8 +20,10 @@ export default function HomeScreen() {
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Five provinces</Text>
         <Text style={styles.note}>
-          The region's name comes from its provinces: CAvite, LAguna, BAtangas, Rizal, and
-          QueZON. Tap one to see its destinations.
+          The name CALABARZON is made from the letters in bold:{' '}
+          <Text style={styles.bold}>Ca</Text>vite, <Text style={styles.bold}>La</Text>guna,{' '}
+          <Text style={styles.bold}>Ba</Text>tangas, <Text style={styles.bold}>R</Text>izal, and{' '}
+          Que<Text style={styles.bold}>zon</Text>. Tap a province to see its destinations.
         </Text>
         <View style={styles.provinces}>
           {PROVINCES.map((province) => (
@@ -87,6 +89,10 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     color: colors.textLight,
     marginBottom: 12,
+  },
+  bold: {
+    fontWeight: 'bold',
+    color: colors.text,
   },
   provinces: {
     flexDirection: 'row',
