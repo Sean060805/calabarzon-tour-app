@@ -26,15 +26,15 @@ These are the 15 real CALABARZON destinations in the app (3 per province). A sou
 - **Check:** Tour boat departure points have changed over the years (Manila or Mariveles, Bataan). Don't put a departure point in the description.
 - **Sources:** [Showcaves: Malinta Tunnel](https://showcaves.com/english/ph/subterranea/Malinta.html), [Pacific Wrecks: Malinta Tunnel](https://img.pacificwrecks.com/location/philippines/cavite/corregidor/malinta/index.html), [Rappler](https://www.rappler.com/life-and-style/travel/48298-touring-corregidor-philippines-military-bastion/)
 
-### 3. Museo De La Salle
-- **Name:** Museo De La Salle
+### 3. Bonifacio Trial House
+- **Name:** Bonifacio Trial House
 - **Province:** Cavite
 - **Category:** Museum
-- **Address:** De La Salle University-Dasmariñas, Dasmariñas City, Cavite
-- **Description:** A lifestyle museum inside the DLSU-Dasmariñas campus that shows how wealthy, educated Filipinos (ilustrados) lived in the 19th century. Its bahay na bato-inspired building has rooms such as a prayer room, a master's bedroom, an office, and a dining hall, filled with period furniture and objects.
-- **Check:** Visiting hours and entry rules on the museum's website.
-- **Photo:** none yet. Wikimedia Commons has no free photo of this museum, so the app shows "No photo yet". Add your own photo with **Edit**.
-- **Sources:** [Museo De La Salle (official)](https://www.dlsud.edu.ph/museodelasalle/collections/furniture.htm), [PTV News](https://ptvnews.ph/getting-know-ilustrado-lifestyle-museo-de-la-salle/)
+- **Address:** Col. C. Riel St., Poblacion, Maragondon, Cavite
+- **Description:** The house where Katipunan leader Andrés Bonifacio and his brother Procopio were tried by a revolutionary military court in May 1897. They were charged with treason and sedition, sentenced to death, and executed on May 10, 1897, in the mountains of Maragondon. Built in 1889, the house is a National Historical Landmark and is now the Museo ng Paglilitis ni Andres Bonifacio, run by the National Historical Commission of the Philippines (NHCP).
+- **Check:** Visiting hours. The NHCP lists Tuesday to Sunday, 8 AM to 5 PM, but other sources differ, so hours are left out.
+- **Note:** This replaced Museo De La Salle (DLSU-Dasmariñas), which has no free photos on Wikimedia Commons.
+- **Sources:** [Wikipedia: Bonifacio Trial House](https://en.wikipedia.org/wiki/Bonifacio_Trial_House), [PTV News: NHCP museum activities](https://ptvnews.ph/nhcp-bares-year-long-museum-activities-bonifacio-trial-house/), [PTV News: Bonifacio siblings in Cavite museum](https://ptvnews.ph/bonifacio-siblings-historical-role-featured-cavite-museum/)
 
 ---
 
@@ -165,6 +165,7 @@ All photos are from [Wikimedia Commons](https://commons.wikimedia.org) and are u
 |---|---|---|---|
 | Aguinaldo Shrine | [Aguinaldo's Mansion.jpg](https://commons.wikimedia.org/wiki/File:Aguinaldo%27s_Mansion.jpg) | Jenielle Herrera | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
 | Corregidor Island | [Malinta Tunnel Corregidor.jpg](https://commons.wikimedia.org/wiki/File:Malinta_Tunnel_Corregidor.jpg) | Carmelo Bayarcal | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
+| Bonifacio Trial House | [Bonifacio Trial House, Maragondon, Cavite, July 2025 (2).jpg](https://commons.wikimedia.org/wiki/File:Bonifacio_Trial_House,_Maragondon,_Cavite,_July_2025_(2).jpg) | Ralff Nestor Nacor | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
 | Rizal Shrine | [Rizal Shrine, Laguna.jpg](https://commons.wikimedia.org/wiki/File:Rizal_Shrine,_Laguna.jpg) | Elmer B. Domingo | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
 | Pagsanjan Falls | [Pagsanjan Falls, Laguna, Philippines - panoramio.jpg](https://commons.wikimedia.org/wiki/File:Pagsanjan_Falls,_Laguna,_Philippines_-_panoramio.jpg) | Andrew Martin | [CC BY 3.0](https://creativecommons.org/licenses/by/3.0) |
 | Nagcarlan Underground Cemetery | [Nagcarlan Underground Cemetery.jpg](https://commons.wikimedia.org/wiki/File:Nagcarlan_Underground_Cemetery.jpg) | Harristing82 | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
