@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Follow PLAN.md. **Current phase: Phase 2 (show a list using fake data), not started yet. Phases 0 and 1 are done.**
+Follow PLAN.md. **Current phase: Phase 3 (connect to Firebase, READ), not started yet. Phases 0 to 2 are done.**
 
 Update the current phase line above at the end of every phase.
 

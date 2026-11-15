@@ -1,15 +1,21 @@
-import { Link, router } from 'expo-router';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { router } from 'expo-router';
+import { Button, FlatList, StyleSheet, View } from 'react-native';
+import DestinationCard from '../../components/DestinationCard';
+import colors from '../../constants/colors';
+import sampleDestinations from '../../data/sampleDestinations';
 
 export default function DestinationListScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.note}>The real list comes in Phase 2. For now, try these test links:</Text>
-
-      <Link href="/destinations/1" style={styles.link}>Open destination 1</Link>
-      <Link href="/destinations/2" style={styles.link}>Open destination 2</Link>
-
-      <Button title="Add Destination" onPress={() => router.push('/destinations/add')} />
+      <View style={styles.actions}>
+        <Button title="Add Destination" onPress={() => router.push('/destinations/add')} />
+      </View>
+      <FlatList
+        data={sampleDestinations}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <DestinationCard destination={item} />}
+        contentContainerStyle={styles.list}
+      />
     </View>
   );
 }
@@ -17,16 +23,14 @@ export default function DestinationListScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    padding: 24,
+    backgroundColor: colors.background,
   },
-  note: {
-    fontSize: 16,
-    marginBottom: 16,
+  actions: {
+    paddingHorizontal: 16,
+    paddingTop: 16,
   },
-  link: {
-    fontSize: 18,
-    color: '#1565C0',
-    marginBottom: 16,
+  list: {
+    padding: 16,
+    paddingBottom: 40,
   },
 });
