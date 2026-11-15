@@ -1,10 +1,9 @@
 # Destination Content and Sources
 
-These are the 15 real CALABARZON destinations for the app (3 per province). Each entry is ready to copy into the app's **Add Destination** form. A source is listed for every fact.
+These are the 15 real CALABARZON destinations in the app (3 per province). A source is listed for every fact.
 
-**Before entering each one:**
-- Read the **Check** notes. Those are details that sources disagree on or that change over time. Confirm them, or leave them out.
-- **Photos:** use your own photos, or free-to-use photos from [Wikimedia Commons](https://commons.wikimedia.org) (search the place name). Save the photo to your phone's gallery first, then pick it in the app.
+- **All 15 are already saved in the app's Firestore database**, using exactly the text below. Their photos come from Wikimedia Commons; see [Photo credits](#photo-credits).
+- **Check** notes mark details that sources disagree on or that change over time. Those details were left out of the descriptions. If you confirm one, you can add it with the app's **Edit** button.
 
 ---
 
@@ -34,6 +33,7 @@ These are the 15 real CALABARZON destinations for the app (3 per province). Each
 - **Address:** De La Salle University-Dasmariñas, Dasmariñas City, Cavite
 - **Description:** A lifestyle museum inside the DLSU-Dasmariñas campus that shows how wealthy, educated Filipinos (ilustrados) lived in the 19th century. Its bahay na bato-inspired building has rooms such as a prayer room, a master's bedroom, an office, and a dining hall, filled with period furniture and objects.
 - **Check:** Visiting hours and entry rules on the museum's website.
+- **Photo:** none yet. Wikimedia Commons has no free photo of this museum, so the app shows "No photo yet". Add your own photo with **Edit**.
 - **Sources:** [Museo De La Salle (official)](https://www.dlsud.edu.ph/museodelasalle/collections/furniture.htm), [PTV News](https://ptvnews.ph/getting-know-ilustrado-lifestyle-museo-de-la-salle/)
 
 ---
@@ -154,3 +154,26 @@ These are the 15 real CALABARZON destinations for the app (3 per province). Each
 - **Description:** An American-era capitol building from the early 1900s, designed by American architect William Parsons and later expanded by Filipino architect Juan Arellano. Its front still reads "Tayabas Provincial Capitol," the province's name before it was renamed after President Manuel L. Quezon.
 - **Check:** The street address. Sources give 1906 or 1908 for its construction, so only "early 1900s" is used.
 - **Sources:** [Inquirer: century-old Kapitolyo rehabilitation](https://newsinfo.inquirer.net/?p=264930), [Lakwatserang Ligaw](https://www.lakwatserangligaw.com/2014/09/quezon-provincial-capitol.html)
+
+---
+
+## Photo credits
+
+All photos are from [Wikimedia Commons](https://commons.wikimedia.org) and are used under the licenses below. For the app, each photo was resized to 800px wide and saved as a compressed JPEG. The Kamay ni Hesus photo was also cropped to a landscape shape.
+
+| Destination | Photo | Author | License |
+|---|---|---|---|
+| Aguinaldo Shrine | [Aguinaldo's Mansion.jpg](https://commons.wikimedia.org/wiki/File:Aguinaldo%27s_Mansion.jpg) | Jenielle Herrera | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
+| Corregidor Island | [Malinta Tunnel Corregidor.jpg](https://commons.wikimedia.org/wiki/File:Malinta_Tunnel_Corregidor.jpg) | Carmelo Bayarcal | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
+| Rizal Shrine | [Rizal Shrine, Laguna.jpg](https://commons.wikimedia.org/wiki/File:Rizal_Shrine,_Laguna.jpg) | Elmer B. Domingo | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
+| Pagsanjan Falls | [Pagsanjan Falls, Laguna, Philippines - panoramio.jpg](https://commons.wikimedia.org/wiki/File:Pagsanjan_Falls,_Laguna,_Philippines_-_panoramio.jpg) | Andrew Martin | [CC BY 3.0](https://creativecommons.org/licenses/by/3.0) |
+| Nagcarlan Underground Cemetery | [Nagcarlan Underground Cemetery.jpg](https://commons.wikimedia.org/wiki/File:Nagcarlan_Underground_Cemetery.jpg) | Harristing82 | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
+| Taal Heritage Town | [Villavicencio Wedding Gift House1.JPG](https://commons.wikimedia.org/wiki/File:Villavicencio_Wedding_Gift_House1.JPG) | Eric Jam | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
+| Basilica of St. Martin de Tours | [Saint Martin de Tours Basilica.jpg](https://commons.wikimedia.org/wiki/File:Saint_Martin_de_Tours_Basilica.jpg) | Arman E. Barbuco | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
+| Taal Volcano | [Taal Volcano view from Tagaytay.jpg](https://commons.wikimedia.org/wiki/File:Taal_Volcano_view_from_Tagaytay.jpg) | Yla Corotan | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
+| Hinulugang Taktak | [Hinulugang Taktak National Park falls front (Dela Paz, Antipolo, Rizal; 02-06-2024).jpg](https://commons.wikimedia.org/wiki/File:Hinulugang_Taktak_National_Park_falls_front_(Dela_Paz,_Antipolo,_Rizal;_02-06-2024).jpg) | Patrickroque01 | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
+| Antipolo Cathedral | [Antipolo Cathedral April 30 2026.jpg](https://commons.wikimedia.org/wiki/File:Antipolo_Cathedral_April_30_2026.jpg) | GregorAbacus295 | [CC0](https://creativecommons.org/publicdomain/zero/1.0/deed.en) |
+| Masungi Georeserve | [Sapot Masungi Georserve.jpg](https://commons.wikimedia.org/wiki/File:Sapot_Masungi_Georserve.jpg) | Jtepace | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
+| Kamay ni Hesus Shrine | [Kamay ni Jesus.jpg](https://commons.wikimedia.org/wiki/File:Kamay_ni_Jesus.jpg) (cropped) | MarvinBikolano | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
+| Pahiyas Festival | [Pahiyas Festival 2023 G. Del Pilar (Lucban, Quezon; 05-14-2023).jpg](https://commons.wikimedia.org/wiki/File:Pahiyas_Festival_2023_G._Del_Pilar_(Lucban,_Quezon;_05-14-2023).jpg) | Patrickroque01 | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
+| Quezon Provincial Capitol | [Quezon Provincial Capitol Facade, Lucena City.jpg](https://commons.wikimedia.org/wiki/File:Quezon_Provincial_Capitol_Facade,_Lucena_City.jpg) | Rodrigo C. Belleza Jr. | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |

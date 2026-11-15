@@ -104,4 +104,4 @@ Firebase Storage requires the paid Blaze plan, so photos are stored **inside the
 
 ## Destination content
 
-The destinations in the app are real places, three per province. Their descriptions, addresses, and sources are in [docs/destinations.md](docs/destinations.md).
+The destinations in the app are real places, three per province. Their descriptions, addresses, sources, and photo credits (Wikimedia Commons) are in [docs/destinations.md](docs/destinations.md).

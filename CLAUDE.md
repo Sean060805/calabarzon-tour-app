@@ -4,8 +4,8 @@ Follow PLAN.md. **Current phase: Phases 4 to 8 built in one go at Klyde's reques
 
 Still to do, in order:
 1. Klyde tests Phases 4 to 8 on the phone (fix anything found), then push.
-2. Klyde enters the 15 destinations from `docs/destinations.md` through the app (with photos), checking every "Check" note.
-3. Klyde takes screenshots; add a Screenshots section to README.md (images in `docs/screenshots/`).
+2. DONE (2026-11-16, at Klyde's request): Claude saved all 15 destinations from `docs/destinations.md` to Firestore with a one-time script (not kept in the repo), with Wikimedia Commons photos (credits at the end of `docs/destinations.md`). Museo De La Salle has no photo: Commons has none; Klyde can add one with Edit.
+3. Klyde takes screenshots; add a Screenshots section to README.md (images in `docs/screenshots/`). Also add Klyde's name (and section, if needed) to README.md.
 4. Run PLAN.md's final test checklist, then final commit and push.
 
 Update the current phase line above at the end of every phase.
