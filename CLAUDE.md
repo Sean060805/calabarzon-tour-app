@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Follow PLAN.md. **Current phase: Phase 4 (add destinations + image), not started yet. Phases 0 to 3 are done.**
+Follow PLAN.md. **Current phase: Phases 4 to 8 built in one go at Klyde's request; waiting for Klyde to test them on the phone, then push. Phases 0 to 3 are tested and pushed.**
 
 Update the current phase line above at the end of every phase.
 

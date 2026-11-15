@@ -1,5 +1,5 @@
-import { router } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { router, useFocusEffect } from 'expo-router';
+import { useCallback, useState } from 'react';
 import { ActivityIndicator, Button, FlatList, StyleSheet, Text, View } from 'react-native';
 import DestinationCard from '../../components/DestinationCard';
 import colors from '../../constants/colors';
@@ -10,20 +10,24 @@ export default function DestinationListScreen() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    async function loadDestinations() {
-      try {
-        const data = await getAllDestinations();
-        setDestinations(data);
-      } catch (err) {
-        console.log(err);
-        setError('Could not load destinations. Check your internet connection.');
-      } finally {
-        setLoading(false);
+  // Runs every time this screen is shown, so new or changed destinations appear
+  useFocusEffect(
+    useCallback(() => {
+      async function loadDestinations() {
+        try {
+          const data = await getAllDestinations();
+          setDestinations(data);
+          setError(null);
+        } catch (err) {
+          console.log(err);
+          setError('Could not load destinations. Check your internet connection.');
+        } finally {
+          setLoading(false);
+        }
       }
-    }
-    loadDestinations();
-  }, []);
+      loadDestinations();
+    }, [])
+  );
 
   if (loading) {
     return (

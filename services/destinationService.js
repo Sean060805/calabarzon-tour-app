@@ -1,4 +1,13 @@
-import { collection, doc, getDoc, getDocs, orderBy, query } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  orderBy,
+  query,
+  serverTimestamp,
+} from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
 const COLLECTION = 'destinations';
@@ -16,4 +25,14 @@ export async function getDestinationById(id) {
     return null;
   }
   return { id: snapshot.id, ...snapshot.data() };
+}
+
+// INSERT INTO destinations (...) VALUES (...)
+export async function addDestination(data) {
+  const newDoc = await addDoc(collection(db, COLLECTION), {
+    ...data,
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  });
+  return newDoc.id;
 }
