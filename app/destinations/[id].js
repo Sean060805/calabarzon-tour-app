@@ -1,16 +1,42 @@
 import { router, useLocalSearchParams } from 'expo-router';
-import { Button, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, Button, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import colors from '../../constants/colors';
-import sampleDestinations from '../../data/sampleDestinations';
+import { getDestinationById } from '../../services/destinationService';
 
 export default function DestinationDetailsScreen() {
   const { id } = useLocalSearchParams();
-  const destination = sampleDestinations.find((item) => item.id === id);
+  const [destination, setDestination] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  if (!destination) {
+  useEffect(() => {
+    async function loadDestination() {
+      try {
+        const data = await getDestinationById(id);
+        setDestination(data);
+      } catch (err) {
+        console.log(err);
+        setError('Could not load this destination. Check your internet connection.');
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadDestination();
+  }, [id]);
+
+  if (loading) {
     return (
-      <View style={[styles.container, styles.content]}>
-        <Text style={styles.body}>Destination not found.</Text>
+      <View style={styles.center}>
+        <ActivityIndicator size="large" color={colors.primary} />
+      </View>
+    );
+  }
+
+  if (error || !destination) {
+    return (
+      <View style={styles.center}>
+        <Text style={styles.message}>{error || 'Destination not found.'}</Text>
       </View>
     );
   }
@@ -44,6 +70,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.card,
+  },
+  center: {
+    flex: 1,
+    backgroundColor: colors.card,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 24,
+  },
+  message: {
+    fontSize: 16,
+    color: colors.textLight,
+    textAlign: 'center',
   },
   image: {
     width: '100%',
