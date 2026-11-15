@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Follow PLAN.md. **Current phase: Phase 1 (screens and navigation), not started yet. Phase 0 is done.**
+Follow PLAN.md. **Current phase: Phase 2 (show a list using fake data), not started yet. Phases 0 and 1 are done.**
 
 Update the current phase line above at the end of every phase.
 
@@ -42,3 +42,5 @@ Klyde wants to **learn React Native while building**, not just get finished code
 - Screens live in **`app/` at the project root** (not `src/app/`), as in PLAN.md's folder structure.
 - Expo Go only contains its built-in native modules. Only use libraries that work in Expo Go; never anything that needs a development build.
 - `npx expo-doctor` checks for version and config problems.
+- `npx expo login` crashes on Windows when it opens the browser (the `&` in the login URL breaks `cmd.exe start`). Workaround: `set BROWSER=none` (cmd) or `$env:BROWSER="none"` (PowerShell), then `npx expo login` and open the printed link by hand. Klyde must be logged in on both the CLI and the Expo Go app.
+- iOS 26 makes stack headers see-through by default when no header color is set, so content slides under them. `app/_layout.js` sets `headerTransparent: false` to prevent this.
