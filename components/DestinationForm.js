@@ -2,7 +2,6 @@ import { useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
-  Button,
   Image,
   ScrollView,
   StyleSheet,
@@ -14,6 +13,7 @@ import CATEGORIES from '../constants/categories';
 import colors from '../constants/colors';
 import PROVINCES from '../constants/provinces';
 import { pickAndCompressImage } from '../utils/image';
+import AppButton from './AppButton';
 import Chip from './Chip';
 
 // Shared by the Add and Edit screens.
@@ -145,7 +145,11 @@ export default function DestinationForm({ initialValues = {}, submitLabel, onSub
         {processingPhoto ? (
           <ActivityIndicator color={colors.primary} />
         ) : (
-          <Button title={image ? 'Change Photo' : 'Pick Photo'} onPress={handlePickImage} />
+          <AppButton
+            title={image ? 'Change Photo' : 'Pick Photo from Gallery'}
+            variant="outline"
+            onPress={handlePickImage}
+          />
         )}
       </Field>
 
@@ -153,7 +157,7 @@ export default function DestinationForm({ initialValues = {}, submitLabel, onSub
         {saving ? (
           <ActivityIndicator size="large" color={colors.primary} />
         ) : (
-          <Button title={submitLabel} onPress={handleSave} disabled={processingPhoto} />
+          <AppButton title={submitLabel} onPress={handleSave} disabled={processingPhoto} />
         )}
       </View>
     </ScrollView>

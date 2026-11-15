@@ -4,7 +4,10 @@ import colors from '../constants/colors';
 
 export default function DestinationCard({ destination }) {
   return (
-    <Pressable style={styles.card} onPress={() => router.push(`/destinations/${destination.id}`)}>
+    <Pressable
+      style={({ pressed }) => [styles.card, pressed && styles.pressed]}
+      onPress={() => router.push(`/destinations/${destination.id}`)}
+    >
       {destination.image ? (
         <Image source={{ uri: destination.image }} style={styles.image} />
       ) : (
@@ -26,14 +29,18 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: colors.card,
     borderRadius: 12,
-    borderWidth: 1,
-    borderColor: colors.border,
     marginBottom: 16,
-    overflow: 'hidden',
+    // Works like CSS box-shadow
+    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.12)',
+  },
+  pressed: {
+    opacity: 0.85,
   },
   image: {
     width: '100%',
-    height: 160,
+    height: 170,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
   },
   noImage: {
     backgroundColor: colors.border,
@@ -44,7 +51,7 @@ const styles = StyleSheet.create({
     color: colors.textLight,
   },
   info: {
-    padding: 12,
+    padding: 14,
   },
   name: {
     fontSize: 18,
@@ -54,6 +61,6 @@ const styles = StyleSheet.create({
   },
   details: {
     fontSize: 14,
-    color: colors.textLight,
+    color: colors.primary,
   },
 });

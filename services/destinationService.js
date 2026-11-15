@@ -3,8 +3,8 @@ import {
   collection,
   deleteDoc,
   doc,
-  getDoc,
-  getDocs,
+  getDocFromServer,
+  getDocsFromServer,
   orderBy,
   query,
   serverTimestamp,
@@ -14,15 +14,18 @@ import { db } from '../lib/firebase';
 
 const COLLECTION = 'destinations';
 
+// The reads use "FromServer" so they fail with an error when there is no internet,
+// instead of quietly returning an empty list.
+
 // SELECT * FROM destinations ORDER BY name
 export async function getAllDestinations() {
-  const snapshot = await getDocs(query(collection(db, COLLECTION), orderBy('name')));
+  const snapshot = await getDocsFromServer(query(collection(db, COLLECTION), orderBy('name')));
   return snapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
 }
 
 // SELECT * FROM destinations WHERE id = ? (returns null if not found)
 export async function getDestinationById(id) {
-  const snapshot = await getDoc(doc(db, COLLECTION, id));
+  const snapshot = await getDocFromServer(doc(db, COLLECTION, id));
   if (!snapshot.exists()) {
     return null;
   }

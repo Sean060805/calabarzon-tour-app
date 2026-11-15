@@ -1,6 +1,7 @@
 import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { Alert, Button, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import AppButton from '../../components/AppButton';
 import StatusView from '../../components/StatusView';
 import colors from '../../constants/colors';
 import { deleteDestination, getDestinationById } from '../../services/destinationService';
@@ -11,24 +12,30 @@ export default function DestinationDetailsScreen() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const loadDestination = useCallback(async () => {
+    try {
+      const data = await getDestinationById(id);
+      setDestination(data);
+      setError(null);
+    } catch (err) {
+      console.log(err);
+      setError('Could not load this destination. Check your internet connection and try again.');
+    } finally {
+      setLoading(false);
+    }
+  }, [id]);
+
   // Runs every time this screen is shown, so changes from the Edit screen appear
   useFocusEffect(
     useCallback(() => {
-      async function loadDestination() {
-        try {
-          const data = await getDestinationById(id);
-          setDestination(data);
-          setError(null);
-        } catch (err) {
-          console.log(err);
-          setError('Could not load this destination. Check your internet connection.');
-        } finally {
-          setLoading(false);
-        }
-      }
       loadDestination();
-    }, [id])
+    }, [loadDestination])
   );
+
+  function handleRetry() {
+    setLoading(true);
+    loadDestination();
+  }
 
   function handleDelete() {
     Alert.alert(
@@ -55,8 +62,12 @@ export default function DestinationDetailsScreen() {
     return <StatusView loading />;
   }
 
-  if (error || !destination) {
-    return <StatusView message={error || 'Destination not found.'} />;
+  if (error) {
+    return <StatusView message={error} onRetry={handleRetry} />;
+  }
+
+  if (!destination) {
+    return <StatusView message="Destination not found. It may have been deleted." />;
   }
 
   return (
@@ -77,10 +88,10 @@ export default function DestinationDetailsScreen() {
         <Text style={styles.body}>{destination.description}</Text>
 
         <View style={styles.button}>
-          <Button title="Edit" onPress={() => router.push(`/destinations/edit/${id}`)} />
+          <AppButton title="Edit" onPress={() => router.push(`/destinations/edit/${id}`)} />
         </View>
         <View style={styles.button}>
-          <Button title="Delete" color={colors.danger} onPress={handleDelete} />
+          <AppButton title="Delete" variant="danger" onPress={handleDelete} />
         </View>
       </View>
     </ScrollView>

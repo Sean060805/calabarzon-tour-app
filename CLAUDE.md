@@ -1,8 +1,16 @@
 # CLAUDE.md
 
-Follow PLAN.md. **Current phase: Phases 4 to 8 built in one go at Klyde's request; waiting for Klyde to test them on the phone, then push. Phases 0 to 3 are tested and pushed.**
+Follow PLAN.md. **Current phase: Phases 4 to 8 built in one go at Klyde's request and committed locally (not pushed yet). Phases 0 to 3 are tested and pushed.**
+
+Still to do, in order:
+1. Klyde tests Phases 4 to 8 on the phone (fix anything found), then push.
+2. Klyde enters the 15 destinations from `docs/destinations.md` through the app (with photos), checking every "Check" note.
+3. Klyde takes screenshots; add a Screenshots section to README.md (images in `docs/screenshots/`).
+4. Run PLAN.md's final test checklist, then final commit and push.
 
 Update the current phase line above at the end of every phase.
+
+Files added beyond PLAN.md's folder structure, on purpose: `components/AppButton.js`, `components/Chip.js`, `components/StatusView.js`, `constants/provinces.js`, and `docs/destinations.md` (content + sources for the Accuracy grade). `CategoryFilter` is used for both the category and province filters.
 
 ## How to teach
 
