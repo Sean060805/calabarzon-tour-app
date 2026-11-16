@@ -9,11 +9,15 @@ import CATEGORIES from '../../constants/categories';
 import colors from '../../constants/colors';
 import PROVINCES from '../../constants/provinces';
 import { getAllDestinations } from '../../services/destinationService';
+import { getProgressForStudent } from '../../services/progressService';
+import { getStudent } from '../../utils/student';
 
 export default function DestinationListScreen() {
   // The Home screen can open this screen with a province already chosen
   const params = useLocalSearchParams();
   const [destinations, setDestinations] = useState([]);
+  // The IDs of the destinations whose quiz this student has passed
+  const [completedIds, setCompletedIds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState(null);
@@ -23,8 +27,13 @@ export default function DestinationListScreen() {
 
   const loadDestinations = useCallback(async () => {
     try {
-      const data = await getAllDestinations();
+      const [data, student] = await Promise.all([getAllDestinations(), getStudent()]);
       setDestinations(data);
+      // No student yet means nobody has taken a quiz on this phone
+      const progressList = student ? await getProgressForStudent(student.id) : [];
+      setCompletedIds(
+        progressList.filter((item) => item.completed).map((item) => item.destinationId)
+      );
       setError(null);
     } catch (err) {
       console.log(err);
@@ -80,7 +89,9 @@ export default function DestinationListScreen() {
       <FlatList
         data={filteredDestinations}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <DestinationCard destination={item} />}
+        renderItem={({ item }) => (
+          <DestinationCard destination={item} completed={completedIds.includes(item.id)} />
+        )}
         contentContainerStyle={styles.list}
         keyboardDismissMode="on-drag"
         refreshing={refreshing}

@@ -1,7 +1,6 @@
 import {
   addDoc,
   collection,
-  deleteDoc,
   doc,
   getDocFromServer,
   getDocsFromServer,
@@ -9,10 +8,14 @@ import {
   query,
   serverTimestamp,
   updateDoc,
+  where,
+  writeBatch,
 } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
 const COLLECTION = 'destinations';
+// The collections whose documents point to a destination with a destinationId field
+const LINKED_COLLECTIONS = ['tourStops', 'questions', 'progress'];
 
 // The reads use "FromServer" so they fail with an error when there is no internet,
 // instead of quietly returning an empty list.
@@ -51,6 +54,18 @@ export async function updateDestination(id, data) {
 }
 
 // DELETE FROM destinations WHERE id = ?
+// Firestore has no ON DELETE CASCADE, so the linked documents are deleted here too.
+// A batch sends all the deletes together: either all of them happen, or none.
 export async function deleteDestination(id) {
-  await deleteDoc(doc(db, COLLECTION, id));
+  const batch = writeBatch(db);
+
+  for (const name of LINKED_COLLECTIONS) {
+    const snapshot = await getDocsFromServer(
+      query(collection(db, name), where('destinationId', '==', id))
+    );
+    snapshot.docs.forEach((item) => batch.delete(item.ref));
+  }
+
+  batch.delete(doc(db, COLLECTION, id));
+  await batch.commit();
 }

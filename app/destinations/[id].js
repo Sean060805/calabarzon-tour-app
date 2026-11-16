@@ -1,6 +1,6 @@
 import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { Alert, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Image, Linking, ScrollView, StyleSheet, Text, View } from 'react-native';
 import AppButton from '../../components/AppButton';
 import StatusView from '../../components/StatusView';
 import colors from '../../constants/colors';
@@ -37,10 +37,18 @@ export default function DestinationDetailsScreen() {
     loadDestination();
   }
 
+  // Opens the Google Maps app (or website) and searches for this place by name and address
+  function handleOpenMap() {
+    const search = encodeURIComponent(`${destination.name}, ${destination.address}`);
+    Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${search}`).catch(() => {
+      Alert.alert('Could not open Google Maps', 'Please try again.');
+    });
+  }
+
   function handleDelete() {
     Alert.alert(
       'Delete destination?',
-      `Are you sure you want to delete "${destination.name}"? This cannot be undone.`,
+      `Are you sure you want to delete "${destination.name}"? Its tour photos, quiz questions, and saved scores will be deleted too. This cannot be undone.`,
       [
         { text: 'Cancel', style: 'cancel' },
         { text: 'Delete', style: 'destructive', onPress: confirmDelete },
@@ -81,8 +89,28 @@ export default function DestinationDetailsScreen() {
           {destination.category} · {destination.province}
         </Text>
 
+        <View style={styles.mainButton}>
+          <AppButton
+            title="Start Virtual Tour"
+            onPress={() => router.push(`/destinations/tour/${id}`)}
+          />
+        </View>
+        <View style={styles.mainButton}>
+          <AppButton
+            title="Take the Quiz"
+            variant="outline"
+            onPress={() => router.push(`/destinations/quiz/${id}`)}
+          />
+        </View>
+
         <Text style={styles.label}>Address</Text>
         <Text style={styles.body}>{destination.address}</Text>
+        <View style={styles.button}>
+          <AppButton title="Open in Google Maps" variant="outline" onPress={handleOpenMap} />
+        </View>
+        <Text style={styles.mapNote}>
+          Google Maps has Street View and visitors' own 360° photos of many places.
+        </Text>
 
         <Text style={styles.label}>About</Text>
         <Text style={styles.body}>{destination.description}</Text>
@@ -101,20 +129,6 @@ export default function DestinationDetailsScreen() {
             <Text style={styles.body}>{destination.significance}</Text>
           </>
         ) : null}
-
-        <View style={styles.button}>
-          <AppButton
-            title="Start Virtual Tour"
-            onPress={() => router.push(`/destinations/tour/${id}`)}
-          />
-        </View>
-        <View style={styles.button}>
-          <AppButton
-            title="Take the Quiz"
-            variant="outline"
-            onPress={() => router.push(`/destinations/quiz/${id}`)}
-          />
-        </View>
 
         <Text style={styles.manageTitle}>Manage this destination</Text>
         <View style={styles.button}>
@@ -185,6 +199,14 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 16,
+  },
+  mainButton: {
+    marginBottom: 12,
+  },
+  mapNote: {
+    fontSize: 13,
+    color: colors.textLight,
+    marginTop: 6,
   },
   manageTitle: {
     fontSize: 13,

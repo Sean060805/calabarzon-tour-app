@@ -2,7 +2,8 @@ import { router } from 'expo-router';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import colors from '../constants/colors';
 
-export default function DestinationCard({ destination }) {
+// completed is true when the student has passed this destination's quiz
+export default function DestinationCard({ destination, completed }) {
   return (
     <Pressable
       style={({ pressed }) => [styles.card, pressed && styles.pressed]}
@@ -15,6 +16,11 @@ export default function DestinationCard({ destination }) {
           <Text style={styles.noImageText}>No photo yet</Text>
         </View>
       )}
+      {completed ? (
+        <View style={styles.tag}>
+          <Text style={styles.tagText}>✓ Completed</Text>
+        </View>
+      ) : null}
       <View style={styles.info}>
         <Text style={styles.name}>{destination.name}</Text>
         <Text style={styles.details}>
@@ -49,6 +55,20 @@ const styles = StyleSheet.create({
   },
   noImageText: {
     color: colors.textLight,
+  },
+  tag: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    backgroundColor: colors.primary,
+    borderRadius: 12,
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+  },
+  tagText: {
+    color: colors.white,
+    fontSize: 13,
+    fontWeight: 'bold',
   },
   info: {
     padding: 14,
