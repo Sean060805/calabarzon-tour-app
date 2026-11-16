@@ -130,16 +130,18 @@ const styles = StyleSheet.create({
     padding: 16,
     marginBottom: 12,
   },
+  // The space under the name is here, so it is still there when no owner is shown
   appName: {
     fontSize: 22,
     fontWeight: 'bold',
     color: colors.text,
+    marginBottom: 8,
   },
   owner: {
     fontSize: 15,
     fontWeight: 'bold',
     color: colors.primary,
-    marginTop: 2,
+    marginTop: -4,
     marginBottom: 8,
   },
   heading: {
