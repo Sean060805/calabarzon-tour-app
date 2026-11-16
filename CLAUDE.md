@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-**Status: the midterm project (PLAN.md, build phases 0 to 8) is DONE, tested on the phone, and pushed. Next: Project Phase 2, the final project. It is not planned yet; Klyde will bring its requirements.**
+**Status: the midterm project (PLAN.md, build phases 0 to 8) is DONE, tested on the phone, and pushed. Project Phase 2 (the final project) is planned in PLAN-PHASE2.md but NOT started. Waiting for Klyde to OK the plan and its four "Decisions to confirm". Next: PLAN-PHASE2.md, Step 1.**
 
 Update the status line above at the end of every phase.
 
