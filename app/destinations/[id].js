@@ -132,6 +132,13 @@ export default function DestinationDetailsScreen() {
           />
         </View>
         <View style={styles.button}>
+          <AppButton
+            title="Quiz Questions"
+            variant="outline"
+            onPress={() => router.push(`/destinations/questions/${id}`)}
+          />
+        </View>
+        <View style={styles.button}>
           <AppButton title="Delete" variant="danger" onPress={handleDelete} />
         </View>
       </View>
