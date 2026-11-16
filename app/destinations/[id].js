@@ -118,6 +118,13 @@ export default function DestinationDetailsScreen() {
           />
         </View>
         <View style={styles.button}>
+          <AppButton
+            title="Tour Photos"
+            variant="outline"
+            onPress={() => router.push(`/destinations/stops/${id}`)}
+          />
+        </View>
+        <View style={styles.button}>
           <AppButton title="Delete" variant="danger" onPress={handleDelete} />
         </View>
       </View>
