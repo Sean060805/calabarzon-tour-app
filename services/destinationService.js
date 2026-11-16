@@ -2,6 +2,7 @@ import {
   addDoc,
   collection,
   doc,
+  getCountFromServer,
   getDocFromServer,
   getDocsFromServer,
   orderBy,
@@ -24,6 +25,13 @@ const LINKED_COLLECTIONS = ['tourStops', 'questions', 'progress'];
 export async function getAllDestinations() {
   const snapshot = await getDocsFromServer(query(collection(db, COLLECTION), orderBy('name')));
   return snapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
+}
+
+// SELECT COUNT(*) FROM destinations
+// Firestore counts on the server, so the phone does not download the destinations and their photos
+export async function getDestinationCount() {
+  const snapshot = await getCountFromServer(collection(db, COLLECTION));
+  return snapshot.data().count;
 }
 
 // SELECT * FROM destinations WHERE id = ? (returns null if not found)

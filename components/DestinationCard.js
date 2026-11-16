@@ -1,12 +1,13 @@
 import { router } from 'expo-router';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import colors from '../constants/colors';
+import PressableScale from './PressableScale';
 
 // completed is true when the student has passed this destination's quiz
 export default function DestinationCard({ destination, completed }) {
   return (
-    <Pressable
-      style={({ pressed }) => [styles.card, pressed && styles.pressed]}
+    <PressableScale
+      style={styles.card}
       onPress={() => router.push(`/destinations/${destination.id}`)}
     >
       {destination.image ? (
@@ -27,7 +28,7 @@ export default function DestinationCard({ destination, completed }) {
           {destination.category} · {destination.province}
         </Text>
       </View>
-    </Pressable>
+    </PressableScale>
   );
 }
 
@@ -38,9 +39,6 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     // Works like CSS box-shadow
     boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.12)',
-  },
-  pressed: {
-    opacity: 0.85,
   },
   image: {
     width: '100%',

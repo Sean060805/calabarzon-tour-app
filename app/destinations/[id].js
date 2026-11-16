@@ -1,6 +1,6 @@
 import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { Alert, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import AppButton from '../../components/AppButton';
 import StatusView from '../../components/StatusView';
 import colors from '../../constants/colors';
@@ -88,36 +88,37 @@ export default function DestinationDetailsScreen() {
             onPress={() => router.push(`/destinations/tour/${id}`)}
           />
         </View>
-        {/* Only destinations with map coordinates have this button */}
-        {destination.coordinates ? (
-          <View style={styles.mainButton}>
+        {/* Two buttons side by side. Each one sits in a box with flex: 1, so they share the width equally. */}
+        <View style={styles.row}>
+          <View style={styles.rowItem}>
             <AppButton
-              title="Open 360° Street View"
+              title="Take the Quiz"
               variant="outline"
-              onPress={() => openStreetView(destination.coordinates)}
+              onPress={() => router.push(`/destinations/quiz/${id}`)}
             />
-            <Text style={styles.mapNote}>
-              Opens Google Maps, where you can look around the real place in 360°.
-            </Text>
           </View>
-        ) : null}
-        <View style={styles.mainButton}>
-          <AppButton
-            title="Take the Quiz"
-            variant="outline"
-            onPress={() => router.push(`/destinations/quiz/${id}`)}
-          />
+          {/* Only destinations with map coordinates have this button */}
+          {destination.coordinates ? (
+            <View style={styles.rowItem}>
+              <AppButton
+                title="360° Street View"
+                variant="outline"
+                onPress={() => openStreetView(destination.coordinates)}
+              />
+            </View>
+          ) : null}
         </View>
+        {destination.coordinates ? (
+          <Text style={styles.note}>
+            360° Street View opens Google Maps, where you can look around the real place.
+          </Text>
+        ) : null}
 
         <Text style={styles.label}>Address</Text>
         <Text style={styles.body}>{destination.address}</Text>
-        <View style={styles.button}>
-          <AppButton
-            title="Open in Google Maps"
-            variant="outline"
-            onPress={() => openInGoogleMaps(destination)}
-          />
-        </View>
+        <Pressable onPress={() => openInGoogleMaps(destination)} hitSlop={8}>
+          <Text style={styles.link}>Open in Google Maps ›</Text>
+        </Pressable>
 
         <Text style={styles.label}>About</Text>
         <Text style={styles.body}>{destination.description}</Text>
@@ -137,30 +138,38 @@ export default function DestinationDetailsScreen() {
           </>
         ) : null}
 
+        {/* The less-used buttons are small and share two rows, so they don't crowd the screen */}
         <Text style={styles.manageTitle}>Manage this destination</Text>
-        <View style={styles.button}>
-          <AppButton
-            title="Edit"
-            variant="outline"
-            onPress={() => router.push(`/destinations/edit/${id}`)}
-          />
+        <View style={styles.row}>
+          <View style={styles.rowItem}>
+            <AppButton
+              title="Edit"
+              variant="outline"
+              small
+              onPress={() => router.push(`/destinations/edit/${id}`)}
+            />
+          </View>
+          <View style={styles.rowItem}>
+            <AppButton title="Delete" variant="danger" small onPress={handleDelete} />
+          </View>
         </View>
-        <View style={styles.button}>
-          <AppButton
-            title="Tour Photos"
-            variant="outline"
-            onPress={() => router.push(`/destinations/stops/${id}`)}
-          />
-        </View>
-        <View style={styles.button}>
-          <AppButton
-            title="Quiz Questions"
-            variant="outline"
-            onPress={() => router.push(`/destinations/questions/${id}`)}
-          />
-        </View>
-        <View style={styles.button}>
-          <AppButton title="Delete" variant="danger" onPress={handleDelete} />
+        <View style={styles.row}>
+          <View style={styles.rowItem}>
+            <AppButton
+              title="Tour Photos"
+              variant="outline"
+              small
+              onPress={() => router.push(`/destinations/stops/${id}`)}
+            />
+          </View>
+          <View style={styles.rowItem}>
+            <AppButton
+              title="Quiz Questions"
+              variant="outline"
+              small
+              onPress={() => router.push(`/destinations/questions/${id}`)}
+            />
+          </View>
         </View>
       </View>
     </ScrollView>
@@ -204,16 +213,28 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     color: colors.text,
   },
-  button: {
-    marginTop: 16,
-  },
   mainButton: {
     marginBottom: 12,
   },
-  mapNote: {
+  row: {
+    flexDirection: 'row',
+    gap: 12,
+    marginBottom: 12,
+  },
+  rowItem: {
+    flex: 1,
+  },
+  note: {
     fontSize: 13,
+    lineHeight: 18,
     color: colors.textLight,
-    marginTop: 6,
+    marginBottom: 4,
+  },
+  link: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: colors.primary,
+    marginTop: 8,
   },
   manageTitle: {
     fontSize: 13,
@@ -221,6 +242,7 @@ const styles = StyleSheet.create({
     color: colors.textLight,
     textTransform: 'uppercase',
     marginTop: 32,
+    marginBottom: 12,
     paddingTop: 16,
     borderTopWidth: 1,
     borderTopColor: colors.border,

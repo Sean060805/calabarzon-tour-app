@@ -1,11 +1,48 @@
-import { router } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
+import { useCallback, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import AppButton from '../components/AppButton';
 import Chip from '../components/Chip';
+import PressableScale from '../components/PressableScale';
+import ProgressBar from '../components/ProgressBar';
 import colors from '../constants/colors';
 import PROVINCES from '../constants/provinces';
+import { getDestinationCount } from '../services/destinationService';
+import { getProgressForStudent } from '../services/progressService';
+import { toPercent } from '../utils/score';
+import { getStudent } from '../utils/student';
 
 export default function HomeScreen() {
+  // { name, completed, total } once a student has typed a name on this phone; null before that
+  const [summary, setSummary] = useState(null);
+
+  const loadSummary = useCallback(async () => {
+    try {
+      const student = await getStudent();
+      if (!student) {
+        setSummary(null);
+        return;
+      }
+      const [total, progressList] = await Promise.all([
+        getDestinationCount(),
+        getProgressForStudent(student.id),
+      ]);
+      const completed = progressList.filter((item) => item.completed).length;
+      setSummary({ name: student.name, completed: Math.min(completed, total), total });
+    } catch (err) {
+      // No internet: the Home screen still works, it just shows the plain button instead
+      console.log(err);
+      setSummary(null);
+    }
+  }, []);
+
+  // Runs every time the Home screen is shown, so a quiz just passed is counted
+  useFocusEffect(
+    useCallback(() => {
+      loadSummary();
+    }, [loadSummary])
+  );
+
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.container}>
       <View style={styles.hero}>
@@ -17,6 +54,17 @@ export default function HomeScreen() {
           tour of each place, then pass its quiz to complete it.
         </Text>
       </View>
+
+      {summary ? (
+        <PressableScale style={styles.progressCard} onPress={() => router.push('/progress')}>
+          <Text style={styles.progressName}>{summary.name}'s progress</Text>
+          <Text style={styles.progressCount}>
+            {summary.completed} of {summary.total} destinations completed
+          </Text>
+          <ProgressBar percent={toPercent(summary.completed, summary.total)} />
+          <Text style={styles.progressLink}>See all my scores ›</Text>
+        </PressableScale>
+      ) : null}
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Five provinces</Text>
@@ -38,9 +86,12 @@ export default function HomeScreen() {
       </View>
 
       <AppButton title="Browse All Destinations" onPress={() => router.push('/destinations')} />
-      <View style={styles.secondButton}>
-        <AppButton title="My Progress" variant="outline" onPress={() => router.push('/progress')} />
-      </View>
+      {/* The progress card above already opens My Progress, so the button is only needed without it */}
+      {summary ? null : (
+        <View style={styles.secondButton}>
+          <AppButton title="My Progress" variant="outline" onPress={() => router.push('/progress')} />
+        </View>
+      )}
     </ScrollView>
   );
 }
@@ -78,6 +129,31 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize: 16,
     lineHeight: 24,
+  },
+  progressCard: {
+    backgroundColor: colors.card,
+    borderRadius: 16,
+    padding: 20,
+    marginBottom: 24,
+    // Works like CSS box-shadow
+    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.12)',
+  },
+  progressName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: colors.text,
+  },
+  progressCount: {
+    fontSize: 15,
+    color: colors.textLight,
+    marginTop: 2,
+    marginBottom: 12,
+  },
+  progressLink: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: colors.primary,
+    marginTop: 12,
   },
   section: {
     marginBottom: 24,

@@ -2,7 +2,9 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import AppButton from '../../../components/AppButton';
+import FadeIn from '../../../components/FadeIn';
 import NameForm from '../../../components/NameForm';
+import ProgressBar from '../../../components/ProgressBar';
 import QuizQuestion from '../../../components/QuizQuestion';
 import QuizResult from '../../../components/QuizResult';
 import StatusView from '../../../components/StatusView';
@@ -10,6 +12,8 @@ import colors from '../../../constants/colors';
 import { getDestinationById } from '../../../services/destinationService';
 import { saveQuizResult } from '../../../services/progressService';
 import { getQuestions } from '../../../services/quizService';
+import { vibrateError, vibrateSuccess } from '../../../utils/haptics';
+import { toPercent } from '../../../utils/score';
 import { getStudent, saveStudent } from '../../../utils/student';
 
 export default function QuizScreen() {
@@ -66,6 +70,9 @@ export default function QuizScreen() {
     // The score is worked out here: one point for each correct answer
     if (index === questions[questionIndex].answerIndex) {
       setScore(score + 1);
+      vibrateSuccess();
+    } else {
+      vibrateError();
     }
   }
 
@@ -127,39 +134,52 @@ export default function QuizScreen() {
     );
   }
 
+  // How many questions have been answered so far, for the bar at the top
+  const answeredCount = finished ? questions.length : questionIndex + (selectedIndex === null ? 0 : 1);
+
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.container}>
       <Text style={styles.heading}>{destination.name}</Text>
+      <View style={styles.progress}>
+        <ProgressBar percent={toPercent(answeredCount, questions.length)} />
+      </View>
 
+      {/* key makes React build a new FadeIn for each question, so every question fades in */}
       {finished ? (
-        <QuizResult
-          score={score}
-          total={questions.length}
-          onRetry={handleTryAgain}
-          onBack={() => router.back()}
-        >
-          {saveStatus === 'saving' ? <Text style={styles.saveNote}>Saving your score...</Text> : null}
-          {saveStatus === 'saved' ? (
-            <Text style={styles.saveNote}>Score saved for {student.name}.</Text>
-          ) : null}
-          {saveStatus === 'failed' ? (
-            <View>
-              <Text style={[styles.saveNote, styles.saveFailed]}>
-                Your score was not saved. Check your internet connection.
-              </Text>
-              <AppButton title="Save Again" variant="outline" onPress={saveScore} />
-            </View>
-          ) : null}
-        </QuizResult>
+        <FadeIn key="result">
+          <QuizResult
+            score={score}
+            total={questions.length}
+            onRetry={handleTryAgain}
+            onBack={() => router.back()}
+          >
+            {saveStatus === 'saving' ? (
+              <Text style={styles.saveNote}>Saving your score...</Text>
+            ) : null}
+            {saveStatus === 'saved' ? (
+              <Text style={styles.saveNote}>Score saved for {student.name}.</Text>
+            ) : null}
+            {saveStatus === 'failed' ? (
+              <View>
+                <Text style={[styles.saveNote, styles.saveFailed]}>
+                  Your score was not saved. Check your internet connection.
+                </Text>
+                <AppButton title="Save Again" variant="outline" onPress={saveScore} />
+              </View>
+            ) : null}
+          </QuizResult>
+        </FadeIn>
       ) : (
-        <QuizQuestion
-          question={questions[questionIndex]}
-          number={questionIndex + 1}
-          total={questions.length}
-          selectedIndex={selectedIndex}
-          onSelect={handleSelect}
-          onNext={handleNext}
-        />
+        <FadeIn key={questionIndex}>
+          <QuizQuestion
+            question={questions[questionIndex]}
+            number={questionIndex + 1}
+            total={questions.length}
+            selectedIndex={selectedIndex}
+            onSelect={handleSelect}
+            onNext={handleNext}
+          />
+        </FadeIn>
       )}
     </ScrollView>
   );
@@ -178,7 +198,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
     color: colors.primary,
-    marginBottom: 12,
+    marginBottom: 8,
+  },
+  progress: {
+    marginBottom: 20,
   },
   saveNote: {
     fontSize: 14,

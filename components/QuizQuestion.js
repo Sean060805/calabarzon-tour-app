@@ -1,6 +1,8 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import colors from '../constants/colors';
 import AppButton from './AppButton';
+import FadeIn from './FadeIn';
+import PressableScale from './PressableScale';
 
 // Shows one question with its choices.
 // selectedIndex is null until the student taps a choice; after that the answer is locked.
@@ -30,18 +32,19 @@ export default function QuizQuestion({ question, number, total, selectedIndex, o
       <Text style={styles.question}>{question.question}</Text>
 
       {question.choices.map((choice, index) => (
-        <Pressable
+        <PressableScale
           key={index}
           style={[styles.choice, choiceStyle(index)]}
           disabled={answered}
           onPress={() => onSelect(index)}
         >
           <Text style={styles.choiceText}>{choice}</Text>
-        </Pressable>
+        </PressableScale>
       ))}
 
+      {/* The feedback fades in, so the eye is drawn to it right after the tap */}
       {answered ? (
-        <View style={styles.feedback}>
+        <FadeIn style={styles.feedback}>
           <Text style={[styles.result, isCorrect ? styles.resultCorrect : styles.resultWrong]}>
             {isCorrect ? 'Correct!' : 'Not quite.'}
           </Text>
@@ -49,7 +52,7 @@ export default function QuizQuestion({ question, number, total, selectedIndex, o
             <Text style={styles.explanation}>{question.explanation}</Text>
           ) : null}
           <AppButton title={number === total ? 'See My Score' : 'Next Question'} onPress={onNext} />
-        </View>
+        </FadeIn>
       ) : null}
     </View>
   );
