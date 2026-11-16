@@ -1,10 +1,25 @@
 # CLAUDE.md
 
-**Status: the midterm project (PLAN.md, build phases 0 to 8) is DONE, tested on the phone, and pushed. Project Phase 2 (the final project) is planned in PLAN-PHASE2.md but NOT started. Waiting for Klyde to OK the plan and its four "Decisions to confirm". Next: PLAN-PHASE2.md, Step 1.**
+**Status: the midterm (PLAN.md) is DONE and pushed. Project Phase 2 (PLAN-PHASE2.md): Steps 0 to 8 are BUILT and committed, but NOT yet tested on a phone and NOT pushed. Step 9 (content) is written; only one sample destination is loaded. Next: Klyde tests on the phone, reviews `docs/tour-content.md`, and says OK to load the other 14.**
 
-Update the status line above at the end of every phase.
+Update the status line above at the end of every step.
 
-## Where things stand (end of the midterm, 2026-11-16)
+## Where Phase 2 stands (2026-11-16)
+
+- **Built while Klyde slept, at Klyde's request,** with one commit per step (`Final Step 0` to `Final Step 9`). The app bundles without errors (`npx expo export`), but **nothing has been run on a phone yet.** Test before pushing.
+- **Still owed to Klyde:** the line-by-line explanation and the tiny exercise for each step (teaching rules 1 and 6). Go through them one step at a time when Klyde is ready.
+- **Test the 360° viewer first.** It was only tested in desktop Chrome, not in the phone's WebView. If a 360° stop shows black or an error on Android or iPhone, look at `utils/panoramaHtml.js` (it turns the base64 photo into a `blob:` address before giving it to Pannellum).
+- **Content:** `docs/tour-content.md` has history, cultural significance, and 5 quiz questions for all 15 destinations, with sources and **Check** notes. Klyde has NOT reviewed it yet.
+- **Only Aguinaldo Shrine is loaded in Firestore** (history, significance, 5 questions, one 360° stop), as a sample so every screen can be tested. The other 14 wait for Klyde's OK.
+- **The loader is outside the repo, in the folder `C:\Projects\phase2-content`.** Its `content.js` is the one source for both the document and the database: after editing it, run `node build-doc.js` to rewrite `docs/tour-content.md`. From that folder:
+  - `node --env-file=../calabarzon-tour/.env load.js --check` (reads only)
+  - `node --env-file=../calabarzon-tour/.env load.js --all` (loads all 15; safe to run twice)
+  - `node --env-file=../calabarzon-tour/.env load.js --undo "Aguinaldo Shrine"` (removes what was loaded; `--undo --all` for everything)
+- **360° photos are the weak spot.** No free-to-use 360° photos of the 15 sites exist (searched Wikimedia Commons and KartaView). The one loaded is a KartaView street photo in front of the Aguinaldo Shrine. Ways to get more: Klyde or classmates take them (the app adds 360° photos from the gallery: Details → Tour Photos); a free Mapillary account and token would let Claude search more street-level 360° photos; or the teacher accepts the Open in Google Maps button for the rest. Never copy Google Street View images.
+- **Two midterm descriptions need Klyde's decision** (see the Check notes in `docs/tour-content.md`): the Malinta Tunnel years on Corregidor Island, and "largest Catholic church in Asia" for the Taal basilica.
+- Files beyond PLAN-PHASE2.md's first list, on purpose: `components/TourStopForm.js` and `utils/score.js`.
+
+## Where the midterm ended (2026-11-16)
 
 - All CRUD, search, filters, and photo features in PLAN.md work on Klyde's Android phone and iPhone (Expo Go).
 - **Firestore has 15 real destinations, 3 per province, all with photos.** Claude added them with a one-time script at Klyde's request (the script is not in the repo); the text and sources are in `docs/destinations.md`, with Wikimedia Commons photo credits at the end. Museo De La Salle was swapped for the Bonifacio Trial House, because Commons has no free photos of the museum.
@@ -61,3 +76,6 @@ Klyde wants to **learn React Native while building**, not just get finished code
 - iOS 26 makes stack headers see-through by default when no header color is set, so content slides under them. `app/_layout.js` sets `headerTransparent: false` to prevent this.
 - `react-dom` is pinned to Expo's version (19.3.0, same as `react`). Without that, npm pulled in a newer `react-dom` and `npx expo install` failed with an ERESOLVE peer dependency error. If that error comes back, check that `react-dom` still matches `react`.
 - The Firestore reads in `services/destinationService.js` use `getDocsFromServer`/`getDocFromServer`, so that being offline shows an error instead of an empty list.
+- Phase 2 added `react-native-webview` (14.0.1) and `@react-native-async-storage/async-storage` (2.2.0). Both are in Expo Go for SDK 58.
+- The 360° viewer loads Pannellum 2.5.6 from `cdn.jsdelivr.net` inside the WebView, so it needs internet. If school Wi-Fi blocks that address, the viewer shows "Could not load the 360° viewer".
+- The tour screen keeps the viewer outside the ScrollView and uses Previous / Next buttons instead of swiping, so dragging the 360° photo does not fight with scrolling.

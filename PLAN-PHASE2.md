@@ -136,6 +136,7 @@ app/
 components/
 ├── PanoramaViewer.js            ← the 360° viewer (a WebView)
 ├── TourStopView.js              ← shows one stop: 360° viewer or normal photo
+├── TourStopForm.js              ← add one tour photo
 ├── QuizQuestion.js              ← one question with its 4 choices
 ├── QuizResult.js                ← the score
 ├── QuestionForm.js              ← add or edit one question
@@ -147,6 +148,7 @@ services/
 └── progressService.js           ← Firebase calls for progress
 utils/
 ├── panoramaHtml.js              ← builds the small web page for the 360° viewer
+├── score.js                     ← percent and pass/fail
 └── student.js                   ← get and save the name + ID on the phone
 constants/
 └── quiz.js                      ← pass mark (60%)

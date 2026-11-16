@@ -1,19 +1,33 @@
 # CALABARZON Virtual Tour
 
-A mobile app for browsing and managing tourist destinations and cultural heritage sites in **Region IV-A (CALABARZON): Cavite, Laguna, Batangas, Rizal, and Quezon**. It is meant as a virtual alternative to school field trips.
+A mobile app for exploring tourist destinations and cultural heritage sites in **Region IV-A (CALABARZON): Cavite, Laguna, Batangas, Rizal, and Quezon**. It is meant as a virtual alternative to school field trips: take the tour of a place, then pass its quiz.
 
 Built with React Native (Expo) and Firebase Cloud Firestore.
 
 ## Features
 
+### Virtual tour
+- **360° view:** a tour stop can be a 360° photo. Drag to look around in every direction, as if standing there.
+- **Photos, history, and cultural significance:** each tour moves from stop to stop with Previous and Next, and shows the place's history and why it matters.
+- **Open in Google Maps:** one tap opens the place in Google Maps, which has Street View and visitors' 360° photos.
+
+### Educational quiz
+- **Multiple-choice quiz for each destination,** one question at a time, with "Correct!" or "Not quite." and a short explanation after each answer.
+- **Automatic score:** the app counts the correct answers and shows the score and the percent. 60% or better passes.
+
+### Progress tracking
+- **Scores are saved to Cloud Firestore** under the student's name: last score, best score, and number of attempts.
+- **My Progress screen:** how many destinations are completed, a progress bar, and the best score for each one.
+- **"✓ Completed" tag** on the destination cards.
+- No login: the student types a name once, and the phone remembers it.
+
+### Destination management (from the midterm)
 - **Browse destinations:** a scrollable list of cards with a photo, name, category, and province.
-- **Destination details:** name, category, province, address, description, and photo.
-- **Add, edit, and delete (CRUD):** all changes are saved to Cloud Firestore and stay after the app is closed.
-  - The add and edit forms check that every field is filled in, and show a message for each missing one.
-  - Deleting asks "Are you sure?" first.
-- **Photos from the gallery:** each photo is resized to 800px wide and compressed before saving (see [Image storage](#image-storage)).
-- **Search and filter:** search by name (as you type, not case-sensitive), filter by category and by province, with an "All" option to reset. Tapping a province on the Home screen opens the list filtered to that province.
-- **Loading, empty, and error states:** a spinner while loading, "No destinations yet" or "No results" when the list is empty, and a "Try Again" button when there is no internet. Pull down on the list to refresh it.
+- **Add, edit, and delete (CRUD):** all changes are saved to Cloud Firestore. The forms check that every field is filled in. Deleting asks "Are you sure?" first, and also removes the destination's tour photos, quiz questions, and saved scores.
+- **Manage tour photos and quiz questions** for each destination, inside the app.
+- **Photos from the gallery:** each photo is resized and compressed before saving (see [Image storage](#image-storage)).
+- **Search and filter:** search by name, filter by category and by province. Tapping a province on the Home screen opens the list filtered to that province.
+- **Loading, empty, and error states:** a spinner while loading, a message when a list is empty, and a "Try Again" button when there is no internet.
 
 ## Tech used
 
@@ -22,6 +36,8 @@ Built with React Native (Expo) and Firebase Cloud Firestore.
 | App framework | [Expo](https://expo.dev) SDK 58 (React Native 0.88), JavaScript |
 | Navigation | [expo-router](https://docs.expo.dev/router/introduction/) (file-based routing, Stack navigator) |
 | Database | [Firebase](https://firebase.google.com) JS SDK, Cloud Firestore |
+| 360° viewer | [Pannellum](https://pannellum.org) (open source), shown inside react-native-webview |
+| Saved on the phone | @react-native-async-storage/async-storage (the student's name and ID) |
 | Photos | expo-image-picker (gallery) and expo-image-manipulator (resize and compress) |
 | Testing | Real Android and iPhone devices through the Expo Go app |
 
@@ -31,48 +47,114 @@ Built with React Native (Expo) and Firebase Cloud Firestore.
 app/                         Screens (each file is one screen)
   _layout.js                 Navigation frame: header style and screen titles
   index.js                   Home screen
+  progress.js                My Progress
   destinations/
     index.js                 Destination list with search and filters
-    [id].js                  Destination details, with Edit and Delete
+    [id].js                  Destination details
     add.js                   Add form
     edit/[id].js             Edit form
+    tour/[id].js             Virtual tour
+    stops/[id].js            Manage a destination's tour photos
+    quiz/[id].js             Quiz and score
+    questions/[id].js        Manage a destination's quiz questions
 components/                  Reusable pieces
   AppButton.js               Button used across the app
   CategoryFilter.js          Row of filter chips ("All" plus options)
   Chip.js                    Small selectable rounded button
   DestinationCard.js         One destination in the list
   DestinationForm.js         Form shared by the Add and Edit screens
+  NameForm.js                "What's your name?"
+  PanoramaViewer.js          The 360° viewer (a WebView)
+  ProgressBar.js             Bar that fills from left to right
+  QuestionForm.js            Form for adding or editing one quiz question
+  QuizQuestion.js            One question with its four choices
+  QuizResult.js              The score at the end of a quiz
   SearchBar.js               Search box
   StatusView.js              Loading spinner, messages, and "Try Again"
-services/
-  destinationService.js      All Firestore calls (get, add, update, delete)
+  TourStopForm.js            Form for adding one tour photo
+  TourStopView.js            One tour stop: 360° viewer or normal photo
+services/                    All Firestore calls, one file per collection
+  destinationService.js      destinations
+  tourService.js             tourStops
+  quizService.js             questions
+  progressService.js         progress
 lib/
   firebase.js                Firebase setup (reads keys from .env)
 utils/
-  image.js                   pickAndCompressImage()
-constants/                   Categories, provinces, and colors
+  image.js                   Pick and compress a normal or a 360° photo
+  panoramaHtml.js            Builds the small web page for the 360° viewer
+  score.js                   Percent and pass/fail
+  student.js                 Saves the student's name and ID on the phone
+constants/                   Categories, provinces, colors, and the quiz pass mark
 docs/
-  destinations.md            Researched content and sources for the destinations
+  destinations.md            Midterm content and sources for the destinations
+  tour-content.md            History, cultural significance, quiz questions, and sources
 ```
 
 ## Data model
 
-Firestore collection: `destinations`
+Four Firestore collections. `tourStops`, `questions`, and `progress` each point to a destination with a `destinationId` field (like a foreign key).
+
+**`destinations`**
 
 | Field | Type | Notes |
 |---|---|---|
 | `name` | string | Required |
 | `description` | string | Required |
+| `history` | string | Required |
+| `significance` | string | Cultural significance. Required |
 | `address` | string | Required |
 | `province` | string | Cavite, Laguna, Batangas, Rizal, or Quezon |
 | `category` | string | Historical Site, Church / Religious Site, Museum, Nature & Park, Beach & Resort, Festival & Cultural Event, or Landmark |
-| `image` | string | JPEG photo as a base64 data URI |
-| `createdAt` | timestamp | Set by the server when added |
-| `updatedAt` | timestamp | Set by the server when added or edited |
+| `image` | string | Main photo: JPEG as a base64 data URI |
+| `createdAt` / `updatedAt` | timestamp | Set by the server |
+
+**`tourStops`** (the tour photos after the main photo)
+
+| Field | Type | Notes |
+|---|---|---|
+| `destinationId` | string | The destination this stop belongs to |
+| `order` | number | Smaller numbers show first |
+| `kind` | string | `photo` or `360` |
+| `caption` | string | Required |
+| `credit` | string | Photo credit, optional |
+| `image` | string | JPEG as a base64 data URI |
+
+**`questions`**
+
+| Field | Type | Notes |
+|---|---|---|
+| `destinationId` | string | The destination this question belongs to |
+| `order` | number | Smaller numbers show first |
+| `question` | string | Required |
+| `choices` | array of 4 strings | Required |
+| `answerIndex` | number | 0 to 3: which choice is correct |
+| `explanation` | string | Shown after answering, optional |
+
+**`progress`** (one document per student per destination; its ID is `studentId_destinationId`)
+
+| Field | Type | Notes |
+|---|---|---|
+| `studentId` / `studentName` | string | The ID is random and made on the phone the first time |
+| `destinationId` / `destinationName` | string | |
+| `lastScore` / `bestScore` / `total` | number | |
+| `attempts` | number | How many times the quiz was finished |
+| `completed` | boolean | True once the best score is 60% or more |
+| `updatedAt` | timestamp | Set by the server |
 
 ### Image storage
 
-Firebase Storage requires the paid Blaze plan, so photos are stored **inside the Firestore document** as base64 text (`data:image/jpeg;base64,...`). To fit Firestore's 1 MB document limit, each photo is resized to 800px wide, compressed to JPEG quality 0.5, and rejected if it is still over about 300 KB. All of this is in one function, `pickAndCompressImage()` in `utils/image.js`, so it can be swapped for Firebase Storage or another service later.
+Firebase Storage requires the paid Blaze plan, so photos are stored **inside Firestore documents** as base64 text (`data:image/jpeg;base64,...`). A Firestore document can hold 1 MB, so:
+
+- A normal photo is resized to 800px wide, compressed to JPEG quality 0.5, and rejected if it is still over about 300 KB.
+- A 360° photo needs more detail: it is resized to 2400px wide, compressed to quality 0.6, and rejected if it is over about 950 KB. It must be twice as wide as it is tall.
+- Every tour photo is its own document in `tourStops`.
+
+All of this is in `utils/image.js`, so it can be swapped for Firebase Storage or another service later.
+
+### 360° viewer
+
+A 360° photo is one wide picture that wraps around the viewer like the inside of a ball. `utils/panoramaHtml.js` builds a small web page that loads the open-source Pannellum viewer from a CDN, and `components/PanoramaViewer.js` shows that page in a WebView. It needs an internet connection, like the rest of the app.
 
 ## How to run
 
@@ -100,8 +182,11 @@ Firebase Storage requires the paid Blaze plan, so photos are stored **inside the
    ```
 4. Scan the QR code. On Android, use the Expo Go app; on iPhone, use the Camera app. The phone and computer must be on the same Wi-Fi. If they can't connect, use `npx expo start --tunnel`.
 
-**Note on security:** this class project has no login. Its Firestore rules allow anyone with the app's settings to read and write until January 31, 2027, so it should not hold private data.
+**Note on security:** this class project has no login. Its Firestore rules allow anyone with the app's settings to read and write until January 31, 2027, so it should not hold private data. Students should type a first name or nickname only.
 
 ## Destination content
 
-The destinations in the app are real places, three per province. Their descriptions, addresses, sources, and photo credits (Wikimedia Commons) are in [docs/destinations.md](docs/destinations.md).
+The destinations in the app are real places, three per province.
+
+- [docs/destinations.md](docs/destinations.md): descriptions, addresses, sources, and photo credits (Wikimedia Commons).
+- [docs/tour-content.md](docs/tour-content.md): history, cultural significance, quiz questions, sources, and 360° photo credits.
