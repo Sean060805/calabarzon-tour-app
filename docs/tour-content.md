@@ -57,7 +57,6 @@ This is the Phase 2 text for the 15 destinations: **History**, **Cultural Signif
 
 **Cultural Significance:** Corregidor is remembered for the Filipino and American soldiers who defended it in World War II. The Pacific War Memorial on the island, built by the United States government and completed in 1968, honors them. Today it is a major historical site and is considered part of Cavite City.
 
-- **Check:** The years the Malinta Tunnel was built. The midterm description says 1922 to 1933 (Showcaves, Pacific Wrecks), but Wikipedia's Corregidor page says 1932 to 1934. The new text and the quiz leave the tunnel years out. Decide which years to keep in the description.
 - **Sources:** [Wikipedia: Corregidor](https://en.wikipedia.org/wiki/Corregidor)
 
 **Quiz**
@@ -317,7 +316,7 @@ This is the Phase 2 text for the 15 destinations: **History**, **Cultural Signif
 
 **Cultural Significance:** The basilica is considered the largest church building in the country. Its patron, St. Martin of Tours, is also the patron saint of Taal, and the town celebrates his feast every November 11. The church shows how the people of Taal rebuilt, again and again, after an eruption and an earthquake.
 
-- **Check:** The midterm description says "often called the largest Catholic church in Asia." Wikipedia only says the largest church building in the country. The new text uses the safer claim. Size figures are still left out, as in the midterm.
+- **Check:** Size figures (length and width) differ between sources, so they are left out, as in the midterm.
 - **Sources:** [Wikipedia: Taal Basilica](https://en.wikipedia.org/wiki/Taal_Basilica)
 
 **Quiz**

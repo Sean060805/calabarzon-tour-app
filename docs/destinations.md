@@ -22,9 +22,10 @@ These are the 15 real CALABARZON destinations in the app (3 per province). A sou
 - **Province:** Cavite
 - **Category:** Historical Site
 - **Address:** Corregidor Island, Cavite City, Cavite
-- **Description:** A small rocky island at the entrance of Manila Bay that was a key fortress in World War II. Its Malinta Tunnel, built by American engineers from 1922 to 1933, served as a wartime headquarters where President Manuel L. Quezon and Gen. Douglas MacArthur took shelter. Visitors usually go on an organized day tour.
+- **Description:** A small rocky island at the entrance of Manila Bay that was a key fortress in World War II. Its Malinta Tunnel, built by the U.S. Army from 1932 to 1934, served as a wartime headquarters where President Manuel L. Quezon and Gen. Douglas MacArthur took shelter. Visitors usually go on an organized day tour.
 - **Check:** Tour boat departure points have changed over the years (Manila or Mariveles, Bataan). Don't put a departure point in the description.
-- **Sources:** [Showcaves: Malinta Tunnel](https://showcaves.com/english/ph/subterranea/Malinta.html), [Pacific Wrecks: Malinta Tunnel](https://img.pacificwrecks.com/location/philippines/cavite/corregidor/malinta/index.html), [Rappler](https://www.rappler.com/life-and-style/travel/48298-touring-corregidor-philippines-military-bastion/)
+- **Note:** The tunnel years were changed from "1922 to 1933" to "1932 to 1934" on November 16, 2026, to follow Wikipedia's text (construction began in 1932, and the main tunnel was completed in 1934). Showcaves and Pacific Wrecks give earlier years.
+- **Sources:** [Wikipedia: Corregidor](https://en.wikipedia.org/wiki/Corregidor), [Wikipedia: Malinta Tunnel](https://en.wikipedia.org/wiki/Malinta_Tunnel), [Showcaves: Malinta Tunnel](https://showcaves.com/english/ph/subterranea/Malinta.html), [Pacific Wrecks: Malinta Tunnel](https://img.pacificwrecks.com/location/philippines/cavite/corregidor/malinta/index.html), [Rappler](https://www.rappler.com/life-and-style/travel/48298-touring-corregidor-philippines-military-bastion/)
 
 ### 3. Bonifacio Trial House
 - **Name:** Bonifacio Trial House
@@ -83,8 +84,9 @@ These are the 15 real CALABARZON destinations in the app (3 per province). A sou
 - **Province:** Batangas
 - **Category:** Church / Religious Site
 - **Address:** Taal, Batangas
-- **Description:** The Minor Basilica of St. Martin of Tours, often called the largest Catholic church in Asia. It stands on a hill in the heritage town of Taal and is a National Historical Landmark.
+- **Description:** The Minor Basilica of St. Martin of Tours, considered the largest church building in the Philippines. It stands on a hill in the heritage town of Taal and is a National Historical Landmark.
 - **Check:** The exact street address. Size figures differ between sources, so they are left out.
+- **Note:** "Often called the largest Catholic church in Asia" was changed on November 16, 2026, because the source only says it is the largest church building in the country.
 - **Sources:** [Wikipedia: Taal Basilica](https://en.wikipedia.org/wiki/Taal_Basilica), [Benjie Layug](https://benjielayug.com/1999/10/basilica-of-st-martin-of-tours-taal-batangas.html)
 
 ### 9. Taal Volcano

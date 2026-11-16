@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-**Status: the midterm (PLAN.md) is DONE and pushed. Project Phase 2 (PLAN-PHASE2.md): Steps 0 to 8 are BUILT and committed, but NOT yet tested on a phone and NOT pushed. Step 9 (content) is written; only one sample destination is loaded. Next: Klyde tests on the phone, reviews `docs/tour-content.md`, and says OK to load the other 14.**
+**Status: the midterm (PLAN.md) is DONE and pushed. Project Phase 2 (PLAN-PHASE2.md): Steps 0 to 8 are BUILT and committed, but NOT yet tested on a phone and NOT pushed. Step 9 (content) is DONE: all 15 destinations are loaded in Firestore. Next: Klyde tests on the phone, then Claude explains each step line by line, then push. Open question: how to get more 360° photos (only Aguinaldo Shrine has one).**
 
 Update the status line above at the end of every step.
 
@@ -9,14 +9,15 @@ Update the status line above at the end of every step.
 - **Built while Klyde slept, at Klyde's request,** with one commit per step (`Final Step 0` to `Final Step 9`). The app bundles without errors (`npx expo export`), but **nothing has been run on a phone yet.** Test before pushing.
 - **Still owed to Klyde:** the line-by-line explanation and the tiny exercise for each step (teaching rules 1 and 6). Go through them one step at a time when Klyde is ready.
 - **Test the 360° viewer first.** It was only tested in desktop Chrome, not in the phone's WebView. If a 360° stop shows black or an error on Android or iPhone, look at `utils/panoramaHtml.js` (it turns the base64 photo into a `blob:` address before giving it to Pannellum).
-- **Content:** `docs/tour-content.md` has history, cultural significance, and 5 quiz questions for all 15 destinations, with sources and **Check** notes. Klyde has NOT reviewed it yet.
-- **Only Aguinaldo Shrine is loaded in Firestore** (history, significance, 5 questions, one 360° stop), as a sample so every screen can be tested. The other 14 wait for Klyde's OK.
+- **Content:** `docs/tour-content.md` has history, cultural significance, and 5 quiz questions for all 15 destinations, with sources and **Check** notes.
+- **All 15 are loaded in Firestore** (75 questions), on Klyde's "OK, load it" of 2026-11-16. Only Aguinaldo Shrine has a 360° stop.
+- **Two midterm descriptions were changed on Klyde's decision (2026-11-16):** Corregidor's Malinta Tunnel years are now 1932 to 1934 (following Wikipedia), and the Taal basilica is "considered the largest church building in the Philippines" (not "in Asia"). Both are noted in `docs/destinations.md`.
 - **The loader is outside the repo, in the folder `C:\Projects\phase2-content`.** Its `content.js` is the one source for both the document and the database: after editing it, run `node build-doc.js` to rewrite `docs/tour-content.md`. From that folder:
   - `node --env-file=../calabarzon-tour/.env load.js --check` (reads only)
   - `node --env-file=../calabarzon-tour/.env load.js --all` (loads all 15; safe to run twice)
   - `node --env-file=../calabarzon-tour/.env load.js --undo "Aguinaldo Shrine"` (removes what was loaded; `--undo --all` for everything)
 - **360° photos are the weak spot.** No free-to-use 360° photos of the 15 sites exist (searched Wikimedia Commons and KartaView). The one loaded is a KartaView street photo in front of the Aguinaldo Shrine. Ways to get more: Klyde or classmates take them (the app adds 360° photos from the gallery: Details → Tour Photos); a free Mapillary account and token would let Claude search more street-level 360° photos; or the teacher accepts the Open in Google Maps button for the rest. Never copy Google Street View images.
-- **Two midterm descriptions need Klyde's decision** (see the Check notes in `docs/tour-content.md`): the Malinta Tunnel years on Corregidor Island, and "largest Catholic church in Asia" for the Taal basilica.
+- Checked and ruled out for 360°: the DOT/TPB "360° VR tours" site (tpb.pcitech.com.ph) is offline, and no official NHCP 360° tours were found for the Aguinaldo or Rizal museums.
 - Files beyond PLAN-PHASE2.md's first list, on purpose: `components/TourStopForm.js` and `utils/score.js`.
 
 ## Where the midterm ended (2026-11-16)
