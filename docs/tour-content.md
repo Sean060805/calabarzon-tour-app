@@ -658,6 +658,47 @@ This is the Phase 2 text for the 15 destinations: **History**, **Cultural Signif
 
 ---
 
+## Tour photo credits
+
+Every tour has two more photos after the destination's main photo. All are from [Wikimedia Commons](https://commons.wikimedia.org) and are used under the licenses below. Each was resized to 800px wide and saved as a compressed JPEG. The credit is also shown in the app, under the photo's caption.
+
+| Destination | Caption in the app | Photo | Author | License |
+|---|---|---|---|---|
+| Aguinaldo Shrine | The front of the house and its famous balcony | [Aguinaldo Shrine, front (Kawit, Cavite; 09-19-2021).jpg](https://commons.wikimedia.org/wiki/File:Aguinaldo_Shrine,_front_%28Kawit,_Cavite;_09-19-2021%29.jpg) | patrickroque01 | CC BY-SA 4.0 |
+| Aguinaldo Shrine | A Philippine flag on display inside the museum | [Philippine National Flag at Aguinaldo Shrine, Kawit, Cavite.jpg](https://commons.wikimedia.org/wiki/File:Philippine_National_Flag_at_Aguinaldo_Shrine,_Kawit,_Cavite.jpg) | Ralff Nestor Nacor | CC BY-SA 4.0 |
+| Corregidor Island | The Pacific War Memorial, which honors the Filipino and American soldiers of World War II | [Pacific War Memorial, Corregidor, Philippines (181769934).jpg](https://commons.wikimedia.org/wiki/File:Pacific_War_Memorial,_Corregidor,_Philippines_%28181769934%29.jpg) | yeowatzup | CC BY 2.0 |
+| Corregidor Island | The ruins of the Mile-Long Barracks | [Ruins of Mile Long Barracks.jpg](https://commons.wikimedia.org/wiki/File:Ruins_of_Mile_Long_Barracks.jpg) | Serdrei08140629 | CC BY-SA 4.0 |
+| Bonifacio Trial House | Life-size figures inside the museum show the trial of the Bonifacio brothers | [Bonifacio Trial House 4.jpg](https://commons.wikimedia.org/wiki/File:Bonifacio_Trial_House_4.jpg) | National Historical Commission of the Philippines (NHCP), a government agency | Public domain |
+| Bonifacio Trial House | The stone ground floor of the house | [BTHjf9893 04.JPG](https://commons.wikimedia.org/wiki/File:BTHjf9893_04.JPG) | Ramon FVelasquez | CC BY-SA 3.0 |
+| Rizal Shrine | The statue of the young Rizal with his dog, in the garden of the shrine | [Rizal Shrine Outdoor (Calamba, Laguna).jpg](https://commons.wikimedia.org/wiki/File:Rizal_Shrine_Outdoor_%28Calamba,_Laguna%29.jpg) | Tsambaproductions | CC BY-SA 3.0 |
+| Rizal Shrine | Inside the Rizal Shrine | [Rizal Shrine Indoor (Calamba, Laguna).jpg](https://commons.wikimedia.org/wiki/File:Rizal_Shrine_Indoor_%28Calamba,_Laguna%29.jpg) | Tsambaproductions | CC BY-SA 3.0 |
+| Pagsanjan Falls | Boats on the river, on the way to the falls | [Boats going to Pagsanjan falls.jpg](https://commons.wikimedia.org/wiki/File:Boats_going_to_Pagsanjan_falls.jpg) | Pnig | CC BY-SA 4.0 |
+| Pagsanjan Falls | The Pagsanjan River | [Breathtaking view of Pagsanjan River.jpg](https://commons.wikimedia.org/wiki/File:Breathtaking_view_of_Pagsanjan_River.jpg) | Sheila mae Pelausa | CC BY-SA 4.0 |
+| Nagcarlan Underground Cemetery | The stairway down to the underground crypt | [Stairway into Nagcarlan Underground Cemetery.jpg](https://commons.wikimedia.org/wiki/File:Stairway_into_Nagcarlan_Underground_Cemetery.jpg) | Red marquis | CC0 |
+| Nagcarlan Underground Cemetery | The arched gate, with the chapel seen through it | [Nagcarlan Underground Cemetery in Laguna.jpg](https://commons.wikimedia.org/wiki/File:Nagcarlan_Underground_Cemetery_in_Laguna.jpg) | Elmer B. Domingo | CC BY-SA 4.0 |
+| Taal Heritage Town | The Marcela Agoncillo ancestral house, now a museum | [Marcela Agoncillo Ancestral House, Taal, Batangas, May 2026.jpg](https://commons.wikimedia.org/wiki/File:Marcela_Agoncillo_Ancestral_House,_Taal,_Batangas,_May_2026.jpg) | Ralff Nestor Nacor | CC BY-SA 4.0 |
+| Taal Heritage Town | Old houses along Calle Agoncillo | [Calle Agoncillo, Taal, Batangas, May 2026 (1).jpg](https://commons.wikimedia.org/wiki/File:Calle_Agoncillo,_Taal,_Batangas,_May_2026_%281%29.jpg) | Ralff Nestor Nacor | CC BY-SA 4.0 |
+| Basilica of St. Martin de Tours | Inside the basilica: the long nave leading to the altar | [Taal Basilica Interior, Batangas, May 2026.jpg](https://commons.wikimedia.org/wiki/File:Taal_Basilica_Interior,_Batangas,_May_2026.jpg) | Ralff Nestor Nacor | CC BY-SA 4.0 |
+| Basilica of St. Martin de Tours | Looking up into the dome | [Taal Basilica dome 2024-03-27.jpg](https://commons.wikimedia.org/wiki/File:Taal_Basilica_dome_2024-03-27.jpg) | LMP 2001 | CC BY-SA 4.0 |
+| Taal Volcano | Volcano Island from the air in 2013, with the lake in its crater | [Taal Volcano aerial 2013.jpg](https://commons.wikimedia.org/wiki/File:Taal_Volcano_aerial_2013.jpg) | TheCoffee (Mike Gonzalez) | CC BY-SA 3.0 |
+| Taal Volcano | The crater lake in 2014, before the 2020 eruption | [Taal Volcano crater lake 8-8-2014.jpg](https://commons.wikimedia.org/wiki/File:Taal_Volcano_crater_lake_8-8-2014.jpg) | Kai Lehmann | CC BY 2.0 |
+| Hinulugang Taktak | The falls seen from the viewing deck | [Hinulugang Taktak National Park falls with railings (Dela Paz, Antipolo, Rizal; 02-06-2024).jpg](https://commons.wikimedia.org/wiki/File:Hinulugang_Taktak_National_Park_falls_with_railings_%28Dela_Paz,_Antipolo,_Rizal;_02-06-2024%29.jpg) | Patrickroque01 | CC BY-SA 4.0 |
+| Hinulugang Taktak | The river below the falls, inside the park | [Hinulugang Taktak River, Antipolo, Rizal, Jul 2024.jpg](https://commons.wikimedia.org/wiki/File:Hinulugang_Taktak_River,_Antipolo,_Rizal,_Jul_2024.jpg) | Ralff Nestor Nacor | CC BY-SA 4.0 |
+| Antipolo Cathedral | Inside the cathedral, facing the main altar | [Antipolo Cathedral new interior 2023-11-26.jpg](https://commons.wikimedia.org/wiki/File:Antipolo_Cathedral_new_interior_2023-11-26.jpg) | LMP 2001 | CC BY-SA 4.0 |
+| Antipolo Cathedral | Looking up into the dome of the cathedral | [Antipolo Cathedral Dome Interior, Rizal, Jul 2024.jpg](https://commons.wikimedia.org/wiki/File:Antipolo_Cathedral_Dome_Interior,_Rizal,_Jul_2024.jpg) | Ralff Nestor Nacor | CC BY-SA 4.0 |
+| Masungi Georeserve | Duyan, the giant rope hammock | [Duyan (Giant Hammock) at Masungi Georeserve.jpg](https://commons.wikimedia.org/wiki/File:Duyan_%28Giant_Hammock%29_at_Masungi_Georeserve.jpg) | Jtepace | CC BY-SA 4.0 |
+| Masungi Georeserve | Limestone peaks rising out of the forest | [The Masungi Georeserve.jpg](https://commons.wikimedia.org/wiki/File:The_Masungi_Georeserve.jpg) | Jtepace | CC BY-SA 4.0 |
+| Kamay ni Hesus Shrine | Crosses on the hill of the shrine | [Kamay ni Hesus Lucban (Palm Sunday) 2018-03-25.jpg](https://commons.wikimedia.org/wiki/File:Kamay_ni_Hesus_Lucban_%28Palm_Sunday%29_2018-03-25.jpg) | LMP 2001 | CC BY-SA 4.0 |
+| Kamay ni Hesus Shrine | The altar of the Kamay ni Hesus church | [Altar of Kamay ni Hesus Church Lucban Quezon.JPG](https://commons.wikimedia.org/wiki/File:Altar_of_Kamay_ni_Hesus_Church_Lucban_Quezon.JPG) | Nickrds09 | CC BY-SA 3.0 |
+| Pahiyas Festival | Putting up colorful kiping the day before the festival | [Pahiyas Festival Lucban, Quezon May 14 2026 Kiping Decoration Preparation.jpg](https://commons.wikimedia.org/wiki/File:Pahiyas_Festival_Lucban,_Quezon_May_14_2026_Kiping_Decoration_Preparation.jpg) | Magicsdcar | CC BY 4.0 |
+| Pahiyas Festival | Decorating the front of a house with the harvest | [Pahiyas Festival Lucban, Quezon May 14 2026 Pahiyas Fesival Preparations.jpg](https://commons.wikimedia.org/wiki/File:Pahiyas_Festival_Lucban,_Quezon_May_14_2026_Pahiyas_Fesival_Preparations.jpg) | Magicsdcar | CC BY 4.0 |
+| Quezon Provincial Capitol | The front of the capitol in 2022 | [Quezon Provincial Capitol front (Quezon Avenue, Lucena, Quezon; 10-09-2022).jpg](https://commons.wikimedia.org/wiki/File:Quezon_Provincial_Capitol_front_%28Quezon_Avenue,_Lucena,_Quezon;_10-09-2022%29.jpg) | Patrickroque01 | CC BY-SA 4.0 |
+| Quezon Provincial Capitol | The capitol and Perez Park from the air in 2026 | [Quezon Provincial Capitol, Perez Park drone (Quezon Avenue, Lucena, Quezon; 05-16-2026).jpg](https://commons.wikimedia.org/wiki/File:Quezon_Provincial_Capitol,_Perez_Park_drone_%28Quezon_Avenue,_Lucena,_Quezon;_05-16-2026%29.jpg) | Patrickroque01 | CC BY-SA 4.0 |
+
+- **Note:** the Bonifacio Trial House museum photo is a Philippine government work (National Historical Commission of the Philippines), listed on Commons as public domain.
+
+---
+
 ## Map coordinates (for the Open 360° Street View button)
 
 The button opens Google Maps at the Street View photo nearest to these points. The photos belong to Google and its contributors; the app only opens them and does not copy them.

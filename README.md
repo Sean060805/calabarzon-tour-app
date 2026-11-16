@@ -8,17 +8,18 @@ Built with React Native (Expo) and Firebase Cloud Firestore.
 
 ### Virtual tour
 - **360° view:** a tour stop can be a 360° photo. Drag to look around in every direction, as if standing there.
-- **Photos, history, and cultural significance:** each tour moves from stop to stop with Previous and Next, and shows the place's history and why it matters.
+- **Photos, history, and cultural significance:** each tour has at least three photo stops with captions and credits. It moves from stop to stop with Previous and Next, and shows the place's history and why it matters.
 - **Open 360° Street View:** one tap opens Google Maps already in Street View at the destination's coordinates, so every place can be looked around in 360°. The app only opens Google's photos; it does not copy them.
 - **Open in Google Maps:** finds the place on the map by its name and address.
 
 ### Educational quiz
 - **Multiple-choice quiz for each destination,** one question at a time, with "Correct!" or "Not quite." and a short explanation after each answer.
 - **Automatic score:** the app counts the correct answers and shows the score and the percent. 60% or better passes.
+- **Feedback you can feel:** a progress bar fills as questions are answered, the answer fades in, and the phone gives a short vibration for a right or wrong answer.
 
 ### Progress tracking
 - **Scores are saved to Cloud Firestore** under the student's name: last score, best score, and number of attempts.
-- **My Progress screen:** how many destinations are completed, a progress bar, and the best score for each one.
+- **My Progress screen:** how many destinations are completed, a progress bar, and the best score for each one. The Home screen shows the same count once a student has typed a name.
 - **"✓ Completed" tag** on the destination cards.
 - No login: the student types a name once, and the phone remembers it.
 
@@ -39,6 +40,8 @@ Built with React Native (Expo) and Firebase Cloud Firestore.
 | Database | [Firebase](https://firebase.google.com) JS SDK, Cloud Firestore |
 | 360° viewer | [Pannellum](https://pannellum.org) (open source), shown inside react-native-webview |
 | Saved on the phone | @react-native-async-storage/async-storage (the student's name and ID) |
+| Vibration | expo-haptics |
+| Animation | React Native's built-in Animated (no extra library) |
 | Photos | expo-image-picker (gallery) and expo-image-manipulator (resize and compress) |
 | Testing | Real Android and iPhone devices through the Expo Go app |
 
@@ -64,9 +67,11 @@ components/                  Reusable pieces
   Chip.js                    Small selectable rounded button
   DestinationCard.js         One destination in the list
   DestinationForm.js         Form shared by the Add and Edit screens
+  FadeIn.js                  Makes its content fade in and slide up when it appears
   NameForm.js                "What's your name?"
   PanoramaViewer.js          The 360° viewer (a WebView)
-  ProgressBar.js             Bar that fills from left to right
+  PressableScale.js          A pressable area that shrinks a little while pressed
+  ProgressBar.js             Bar that slides to its new width
   QuestionForm.js            Form for adding or editing one quiz question
   QuizQuestion.js            One question with its four choices
   QuizResult.js              The score at the end of a quiz
@@ -82,6 +87,7 @@ services/                    All Firestore calls, one file per collection
 lib/
   firebase.js                Firebase setup (reads keys from .env)
 utils/
+  haptics.js                 Short vibrations for right and wrong answers
   image.js                   Pick and compress a normal or a 360° photo
   maps.js                    Opens Google Maps and Street View
   panoramaHtml.js            Builds the small web page for the 360° viewer
@@ -192,4 +198,4 @@ A 360° photo is one wide picture that wraps around the viewer like the inside o
 The destinations in the app are real places, three per province.
 
 - [docs/destinations.md](docs/destinations.md): descriptions, addresses, sources, and photo credits (Wikimedia Commons).
-- [docs/tour-content.md](docs/tour-content.md): history, cultural significance, quiz questions, sources, and 360° photo credits.
+- [docs/tour-content.md](docs/tour-content.md): history, cultural significance, quiz questions, sources, tour photo credits, and map coordinates.

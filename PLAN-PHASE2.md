@@ -142,7 +142,9 @@ components/
 ├── QuizResult.js                ← the score
 ├── QuestionForm.js              ← add or edit one question
 ├── NameForm.js                  ← "What's your name?"
-└── ProgressBar.js
+├── ProgressBar.js
+├── FadeIn.js                    ← fade-in animation
+└── PressableScale.js            ← shrinks a little while pressed
 services/
 ├── tourService.js               ← Firebase calls for tourStops
 ├── quizService.js               ← Firebase calls for questions
@@ -151,6 +153,7 @@ utils/
 ├── panoramaHtml.js              ← builds the small web page for the 360° viewer
 ├── score.js                     ← percent and pass/fail
 ├── maps.js                      ← opens Google Maps and Street View
+├── haptics.js                   ← short vibrations in the quiz
 └── student.js                   ← get and save the name + ID on the phone
 constants/
 └── quiz.js                      ← pass mark (60%)
@@ -207,6 +210,13 @@ Each step uses the same loop as the midterm: **build, run on phone, explain line
 - "✓ Completed" tag on the cards in the list. **Open in Google Maps** button on Details.
 - **Open 360° Street View** button on Details and in the tour, with an optional `coordinates` field in the form.
 - Update `README.md` and CLAUDE.md.
+
+#### Step 8b: Presentation polish (added 2026-11-16, at Klyde's request)
+- Two more real photos in every tour (30 photos from Wikimedia Commons, credited in `docs/tour-content.md`).
+- Details screen tidied: main actions at the top, the manage buttons small and in two rows.
+- Quiz: progress bar, fade-in for each question and its feedback, a vibration for right and wrong (`expo-haptics`).
+- Home screen shows "X of 15 destinations completed" once a student has a name.
+- Cards and buttons shrink a little while pressed (`PressableScale`).
 
 #### Step 9: Real content (Claude does the tedious part)
 - For all 15 destinations, Claude researches and writes `history`, `significance`, and 5 quiz questions.
