@@ -18,7 +18,11 @@ export default function AppButton({
       disabled={disabled}
       style={[styles.button, small && styles.small, styles[variant], disabled && styles.faded]}
     >
+      {/* If the title is too long for the button, the text gets a little smaller instead of wrapping */}
       <Text
+        numberOfLines={1}
+        adjustsFontSizeToFit
+        minimumFontScale={0.8}
         style={[
           styles.text,
           small && styles.smallText,
