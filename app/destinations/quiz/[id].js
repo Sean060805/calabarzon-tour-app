@@ -1,15 +1,22 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import AppButton from '../../../components/AppButton';
+import NameForm from '../../../components/NameForm';
 import QuizQuestion from '../../../components/QuizQuestion';
 import QuizResult from '../../../components/QuizResult';
 import StatusView from '../../../components/StatusView';
 import colors from '../../../constants/colors';
+import { getDestinationById } from '../../../services/destinationService';
+import { saveQuizResult } from '../../../services/progressService';
 import { getQuestions } from '../../../services/quizService';
+import { getStudent, saveStudent } from '../../../utils/student';
 
 export default function QuizScreen() {
   const { id } = useLocalSearchParams();
+  const [destination, setDestination] = useState(null);
   const [questions, setQuestions] = useState([]);
+  const [student, setStudent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -18,11 +25,19 @@ export default function QuizScreen() {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [score, setScore] = useState(0);
   const [finished, setFinished] = useState(false);
+  // 'saving', 'saved', or 'failed'
+  const [saveStatus, setSaveStatus] = useState('saving');
 
   const loadQuiz = useCallback(async () => {
     try {
-      const data = await getQuestions(id);
-      setQuestions(data);
+      const [destinationData, questionData, studentData] = await Promise.all([
+        getDestinationById(id),
+        getQuestions(id),
+        getStudent(),
+      ]);
+      setDestination(destinationData);
+      setQuestions(questionData);
+      setStudent(studentData);
       setError(null);
     } catch (err) {
       console.log(err);
@@ -41,6 +56,11 @@ export default function QuizScreen() {
     loadQuiz();
   }
 
+  async function handleSaveName(name) {
+    const newStudent = await saveStudent(name);
+    setStudent(newStudent);
+  }
+
   function handleSelect(index) {
     setSelectedIndex(index);
     // The score is worked out here: one point for each correct answer
@@ -52,9 +72,22 @@ export default function QuizScreen() {
   function handleNext() {
     if (questionIndex === questions.length - 1) {
       setFinished(true);
+      saveScore();
     } else {
       setQuestionIndex(questionIndex + 1);
       setSelectedIndex(null);
+    }
+  }
+
+  // Saves the finished quiz to Firebase
+  async function saveScore() {
+    setSaveStatus('saving');
+    try {
+      await saveQuizResult({ student, destination, score, total: questions.length });
+      setSaveStatus('saved');
+    } catch (err) {
+      console.log(err);
+      setSaveStatus('failed');
     }
   }
 
@@ -73,19 +106,51 @@ export default function QuizScreen() {
     return <StatusView message={error} onRetry={handleRetryLoad} />;
   }
 
+  if (!destination) {
+    return <StatusView message="Destination not found. It may have been deleted." />;
+  }
+
   if (questions.length === 0) {
     return <StatusView message="No quiz yet for this destination." />;
   }
 
+  // Ask for a name before the first quiz, so the score can be saved under it
+  if (!student) {
+    return (
+      <ScrollView
+        style={styles.screen}
+        contentContainerStyle={styles.container}
+        keyboardShouldPersistTaps="handled"
+      >
+        <NameForm onSubmit={handleSaveName} />
+      </ScrollView>
+    );
+  }
+
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.container}>
+      <Text style={styles.heading}>{destination.name}</Text>
+
       {finished ? (
         <QuizResult
           score={score}
           total={questions.length}
           onRetry={handleTryAgain}
           onBack={() => router.back()}
-        />
+        >
+          {saveStatus === 'saving' ? <Text style={styles.saveNote}>Saving your score...</Text> : null}
+          {saveStatus === 'saved' ? (
+            <Text style={styles.saveNote}>Score saved for {student.name}.</Text>
+          ) : null}
+          {saveStatus === 'failed' ? (
+            <View>
+              <Text style={[styles.saveNote, styles.saveFailed]}>
+                Your score was not saved. Check your internet connection.
+              </Text>
+              <AppButton title="Save Again" variant="outline" onPress={saveScore} />
+            </View>
+          ) : null}
+        </QuizResult>
       ) : (
         <QuizQuestion
           question={questions[questionIndex]}
@@ -108,5 +173,20 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
     paddingBottom: 48,
+  },
+  heading: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: colors.primary,
+    marginBottom: 12,
+  },
+  saveNote: {
+    fontSize: 14,
+    color: colors.textLight,
+    textAlign: 'center',
+    marginVertical: 8,
+  },
+  saveFailed: {
+    color: colors.danger,
   },
 });
