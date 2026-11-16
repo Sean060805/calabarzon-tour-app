@@ -7,6 +7,9 @@ const colors = {
   border: '#E0E0E0',
   white: '#FFFFFF',
   danger: '#C62828',
+  // Light green and light red, behind a right or wrong quiz answer
+  correctBackground: '#E8F5E9',
+  wrongBackground: '#FFEBEE',
 };
 
 export default colors;

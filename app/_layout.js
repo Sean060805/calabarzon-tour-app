@@ -34,6 +34,7 @@ export default function RootLayout() {
         <Stack.Screen name="destinations/edit/[id]" options={{ title: 'Edit Destination' }} />
         <Stack.Screen name="destinations/tour/[id]" options={{ title: 'Virtual Tour' }} />
         <Stack.Screen name="destinations/stops/[id]" options={{ title: 'Tour Photos' }} />
+        <Stack.Screen name="destinations/quiz/[id]" options={{ title: 'Quiz' }} />
       </Stack>
     </>
   );

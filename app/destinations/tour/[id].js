@@ -1,6 +1,7 @@
-import { useFocusEffect, useLocalSearchParams } from 'expo-router';
+import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
+import AppButton from '../../../components/AppButton';
 import StatusView from '../../../components/StatusView';
 import TourStopView from '../../../components/TourStopView';
 import colors from '../../../constants/colors';
@@ -115,6 +116,10 @@ export default function VirtualTourScreen() {
           {destination.significance ||
             'No cultural significance has been written for this destination yet.'}
         </Text>
+
+        <View style={styles.quizButton}>
+          <AppButton title="Take the Quiz" onPress={() => router.push(`/destinations/quiz/${id}`)} />
+        </View>
       </ScrollView>
     </View>
   );
@@ -179,5 +184,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     color: colors.text,
+  },
+  quizButton: {
+    marginTop: 28,
   },
 });

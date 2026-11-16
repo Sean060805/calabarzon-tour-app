@@ -108,6 +108,13 @@ export default function DestinationDetailsScreen() {
             onPress={() => router.push(`/destinations/tour/${id}`)}
           />
         </View>
+        <View style={styles.button}>
+          <AppButton
+            title="Take the Quiz"
+            variant="outline"
+            onPress={() => router.push(`/destinations/quiz/${id}`)}
+          />
+        </View>
 
         <Text style={styles.manageTitle}>Manage this destination</Text>
         <View style={styles.button}>
