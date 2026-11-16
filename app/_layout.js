@@ -32,6 +32,7 @@ export default function RootLayout() {
         <Stack.Screen name="destinations/[id]" options={{ title: 'Destination Details' }} />
         <Stack.Screen name="destinations/add" options={{ title: 'Add Destination' }} />
         <Stack.Screen name="destinations/edit/[id]" options={{ title: 'Edit Destination' }} />
+        <Stack.Screen name="destinations/tour/[id]" options={{ title: 'Virtual Tour' }} />
       </Stack>
     </>
   );

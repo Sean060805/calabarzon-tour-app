@@ -103,7 +103,19 @@ export default function DestinationDetailsScreen() {
         ) : null}
 
         <View style={styles.button}>
-          <AppButton title="Edit" onPress={() => router.push(`/destinations/edit/${id}`)} />
+          <AppButton
+            title="Start Virtual Tour"
+            onPress={() => router.push(`/destinations/tour/${id}`)}
+          />
+        </View>
+
+        <Text style={styles.manageTitle}>Manage this destination</Text>
+        <View style={styles.button}>
+          <AppButton
+            title="Edit"
+            variant="outline"
+            onPress={() => router.push(`/destinations/edit/${id}`)}
+          />
         </View>
         <View style={styles.button}>
           <AppButton title="Delete" variant="danger" onPress={handleDelete} />
@@ -152,5 +164,15 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 16,
+  },
+  manageTitle: {
+    fontSize: 13,
+    fontWeight: 'bold',
+    color: colors.textLight,
+    textTransform: 'uppercase',
+    marginTop: 32,
+    paddingTop: 16,
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
   },
 });
