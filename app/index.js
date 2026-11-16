@@ -13,7 +13,8 @@ export default function HomeScreen() {
         <Text style={styles.title}>CALABARZON Virtual Tour</Text>
         <Text style={styles.intro}>
           Explore the historical sites, churches, museums, nature spots, and festivals of
-          CALABARZON: a field trip you can take without leaving the classroom.
+          CALABARZON: a field trip you can take without leaving the classroom. Take the virtual
+          tour of each place, then pass its quiz to complete it.
         </Text>
       </View>
 
@@ -37,6 +38,9 @@ export default function HomeScreen() {
       </View>
 
       <AppButton title="Browse All Destinations" onPress={() => router.push('/destinations')} />
+      <View style={styles.secondButton}>
+        <AppButton title="My Progress" variant="outline" onPress={() => router.push('/progress')} />
+      </View>
     </ScrollView>
   );
 }
@@ -97,5 +101,8 @@ const styles = StyleSheet.create({
   provinces: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+  },
+  secondButton: {
+    marginTop: 12,
   },
 });

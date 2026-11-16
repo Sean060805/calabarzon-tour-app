@@ -1,4 +1,13 @@
-import { doc, getDocFromServer, serverTimestamp, setDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDocFromServer,
+  getDocsFromServer,
+  query,
+  serverTimestamp,
+  setDoc,
+  where,
+} from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { hasPassed } from '../utils/score';
 
@@ -27,4 +36,12 @@ export async function saveQuizResult({ student, destination, score, total }) {
     completed: hasPassed(bestScore, total),
     updatedAt: serverTimestamp(),
   });
+}
+
+// SELECT * FROM progress WHERE studentId = ?
+export async function getProgressForStudent(studentId) {
+  const snapshot = await getDocsFromServer(
+    query(collection(db, COLLECTION), where('studentId', '==', studentId))
+  );
+  return snapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
 }
