@@ -218,6 +218,12 @@ Each step uses the same loop as the midterm: **build, run on phone, explain line
 - Home screen shows "X of 15 destinations completed" once a student has a name.
 - Cards and buttons shrink a little while pressed (`PressableScale`).
 
+#### Step 8c: Ready to hand over (added 2026-11-17, at the teacher's request)
+- The teacher wants the system to be "dynamic": a company that receives it should be able to replace the name and logo.
+- **App Settings** screen (`app/settings.js`): app name, logo, opening text, and owner, saved in a new `settings` collection (one document, `app`). Home and its header read them.
+- **Sources and Credits** screen (`app/credits.js`): each destination's sources and main photo credit, from two new optional fields, `sources` and `photoCredit`.
+- The README explains how to hand the app to a new owner.
+
 #### Step 9: Real content (Claude does the tedious part)
 - For all 15 destinations, Claude researches and writes `history`, `significance`, and 5 quiz questions.
 - **Every quiz answer must be found in the app's own text for that destination,** so the tour teaches it and the quiz checks it.

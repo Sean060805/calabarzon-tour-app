@@ -33,6 +33,7 @@ export default function VirtualTourScreen() {
           kind: 'photo',
           image: destinationData.image,
           caption: destinationData.name,
+          credit: destinationData.photoCredit,
         };
         setStops([firstStop, ...extraStops]);
       }

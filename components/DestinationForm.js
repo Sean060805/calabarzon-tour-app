@@ -26,6 +26,8 @@ export default function DestinationForm({ initialValues = {}, submitLabel, onSub
   const [significance, setSignificance] = useState(initialValues.significance || '');
   const [address, setAddress] = useState(initialValues.address || '');
   const [coordinates, setCoordinates] = useState(initialValues.coordinates || '');
+  const [sources, setSources] = useState(initialValues.sources || '');
+  const [photoCredit, setPhotoCredit] = useState(initialValues.photoCredit || '');
   const [province, setProvince] = useState(initialValues.province || '');
   const [category, setCategory] = useState(initialValues.category || '');
   const [image, setImage] = useState(initialValues.image || '');
@@ -81,6 +83,8 @@ export default function DestinationForm({ initialValues = {}, submitLabel, onSub
         significance: significance.trim(),
         address: address.trim(),
         coordinates: coordinates.trim(),
+        sources: sources.trim(),
+        photoCredit: photoCredit.trim(),
         province,
         category,
         image,
@@ -187,6 +191,17 @@ export default function DestinationForm({ initialValues = {}, submitLabel, onSub
         </View>
       </Field>
 
+      <Field label="Sources (optional)">
+        <TextInput
+          style={[styles.input, styles.multiline]}
+          value={sources}
+          onChangeText={setSources}
+          placeholder="Where the facts come from, one source on each line"
+          multiline
+        />
+        <Text style={styles.hint}>Shown on the Sources and Credits screen.</Text>
+      </Field>
+
       <Field label="Photo" error={errors.image}>
         {image ? <Image source={{ uri: image }} style={styles.preview} /> : null}
         {processingPhoto ? (
@@ -198,6 +213,15 @@ export default function DestinationForm({ initialValues = {}, submitLabel, onSub
             onPress={handlePickImage}
           />
         )}
+      </Field>
+
+      <Field label="Photo credit (optional)">
+        <TextInput
+          style={styles.input}
+          value={photoCredit}
+          onChangeText={setPhotoCredit}
+          placeholder="e.g. Photo: Juan Cruz, CC BY-SA 4.0"
+        />
       </Field>
 
       <View style={styles.saveArea}>

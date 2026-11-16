@@ -1,20 +1,35 @@
-import { router, useFocusEffect } from 'expo-router';
+import { router, Stack, useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import AppButton from '../components/AppButton';
 import Chip from '../components/Chip';
 import PressableScale from '../components/PressableScale';
 import ProgressBar from '../components/ProgressBar';
 import colors from '../constants/colors';
+import DEFAULT_SETTINGS from '../constants/defaultSettings';
 import PROVINCES from '../constants/provinces';
 import { getDestinationCount } from '../services/destinationService';
 import { getProgressForStudent } from '../services/progressService';
+import { getAppSettings, getSavedAppSettings } from '../services/settingsService';
 import { toPercent } from '../utils/score';
 import { getStudent } from '../utils/student';
 
 export default function HomeScreen() {
+  // The app's name, logo, and opening text. They can be changed in App Settings.
+  const [settings, setSettings] = useState(DEFAULT_SETTINGS);
   // { name, completed, total } once a student has typed a name on this phone; null before that
   const [summary, setSummary] = useState(null);
+
+  const loadSettings = useCallback(async () => {
+    try {
+      // First the copy saved on the phone (instant), then the newest one from Firebase
+      setSettings(await getSavedAppSettings());
+      setSettings(await getAppSettings());
+    } catch (err) {
+      // No internet: keep showing the saved copy or the defaults
+      console.log(err);
+    }
+  }, []);
 
   const loadSummary = useCallback(async () => {
     try {
@@ -36,23 +51,24 @@ export default function HomeScreen() {
     }
   }, []);
 
-  // Runs every time the Home screen is shown, so a quiz just passed is counted
+  // Runs every time the Home screen is shown, so a new name or a quiz just passed appears
   useFocusEffect(
     useCallback(() => {
+      loadSettings();
       loadSummary();
-    }, [loadSummary])
+    }, [loadSettings, loadSummary])
   );
 
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.container}>
+      {/* Puts the app's name in the header at the top of this screen */}
+      <Stack.Screen options={{ title: settings.appName }} />
+
       <View style={styles.hero}>
-        <Text style={styles.region}>REGION IV-A</Text>
-        <Text style={styles.title}>CALABARZON Virtual Tour</Text>
-        <Text style={styles.intro}>
-          Explore the historical sites, churches, museums, nature spots, and festivals of
-          CALABARZON: a field trip you can take without leaving the classroom. Take the virtual
-          tour of each place, then pass its quiz to complete it.
-        </Text>
+        {settings.logo ? <Image source={{ uri: settings.logo }} style={styles.logo} /> : null}
+        {settings.label ? <Text style={styles.region}>{settings.label}</Text> : null}
+        <Text style={styles.title}>{settings.appName}</Text>
+        <Text style={styles.intro}>{settings.intro}</Text>
       </View>
 
       {summary ? (
@@ -92,6 +108,25 @@ export default function HomeScreen() {
           <AppButton title="My Progress" variant="outline" onPress={() => router.push('/progress')} />
         </View>
       )}
+
+      <View style={styles.footer}>
+        <View style={styles.footerItem}>
+          <AppButton
+            title="Sources and Credits"
+            variant="outline"
+            small
+            onPress={() => router.push('/credits')}
+          />
+        </View>
+        <View style={styles.footerItem}>
+          <AppButton
+            title="App Settings"
+            variant="outline"
+            small
+            onPress={() => router.push('/settings')}
+          />
+        </View>
+      </View>
     </ScrollView>
   );
 }
@@ -110,6 +145,13 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 24,
     marginBottom: 24,
+  },
+  logo: {
+    width: 72,
+    height: 72,
+    borderRadius: 16,
+    backgroundColor: colors.white,
+    marginBottom: 16,
   },
   region: {
     color: colors.white,
@@ -180,5 +222,16 @@ const styles = StyleSheet.create({
   },
   secondButton: {
     marginTop: 12,
+  },
+  footer: {
+    flexDirection: 'row',
+    gap: 12,
+    marginTop: 32,
+    paddingTop: 20,
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
+  },
+  footerItem: {
+    flex: 1,
   },
 });

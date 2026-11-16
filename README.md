@@ -4,6 +4,8 @@ A mobile app for exploring tourist destinations and cultural heritage sites in *
 
 Built with React Native (Expo) and Firebase Cloud Firestore.
 
+**Developed by Sean Looc.**
+
 ## Features
 
 ### Virtual tour
@@ -22,6 +24,11 @@ Built with React Native (Expo) and Firebase Cloud Firestore.
 - **My Progress screen:** how many destinations are completed, a progress bar, and the best score for each one. The Home screen shows the same count once a student has typed a name.
 - **"✓ Completed" tag** on the destination cards.
 - No login: the student types a name once, and the phone remembers it.
+
+### Made to be handed over
+- **App Settings:** the app's name, logo, opening text, and owner can be changed inside the app, with no code changes. They are saved in Firestore, so every phone shows the new ones. See [Giving the app to a new owner](#giving-the-app-to-a-new-owner).
+- **Sources and Credits screen:** lists where each destination's facts and main photo come from, and what the app is built with.
+- **All content is data:** destinations, tour photos, quiz questions, sources, and photo credits are all added and edited inside the app.
 
 ### Destination management (from the midterm)
 - **Browse destinations:** a scrollable list of cards with a photo, name, category, and province.
@@ -52,6 +59,8 @@ app/                         Screens (each file is one screen)
   _layout.js                 Navigation frame: header style and screen titles
   index.js                   Home screen
   progress.js                My Progress
+  credits.js                 Sources and Credits
+  settings.js                App Settings (name, logo, opening text)
   destinations/
     index.js                 Destination list with search and filters
     [id].js                  Destination details
@@ -84,6 +93,7 @@ services/                    All Firestore calls, one file per collection
   tourService.js             tourStops
   quizService.js             questions
   progressService.js         progress
+  settingsService.js         settings
 lib/
   firebase.js                Firebase setup (reads keys from .env)
 utils/
@@ -93,7 +103,7 @@ utils/
   panoramaHtml.js            Builds the small web page for the 360° viewer
   score.js                   Percent and pass/fail
   student.js                 Saves the student's name and ID on the phone
-constants/                   Categories, provinces, colors, and the quiz pass mark
+constants/                   Categories, provinces, colors, the quiz pass mark, and the default app settings
 docs/
   destinations.md            Midterm content and sources for the destinations
   tour-content.md            History, cultural significance, quiz questions, and sources
@@ -101,7 +111,7 @@ docs/
 
 ## Data model
 
-Four Firestore collections. `tourStops`, `questions`, and `progress` each point to a destination with a `destinationId` field (like a foreign key).
+Five Firestore collections. `tourStops`, `questions`, and `progress` each point to a destination with a `destinationId` field (like a foreign key). `settings` holds one document.
 
 **`destinations`**
 
@@ -116,6 +126,8 @@ Four Firestore collections. `tourStops`, `questions`, and `progress` each point 
 | `province` | string | Cavite, Laguna, Batangas, Rizal, or Quezon |
 | `category` | string | Historical Site, Church / Religious Site, Museum, Nature & Park, Beach & Resort, Festival & Cultural Event, or Landmark |
 | `image` | string | Main photo: JPEG as a base64 data URI |
+| `photoCredit` | string | Optional. Who took the main photo, and its license |
+| `sources` | string | Optional. Where the facts come from, one source on each line |
 | `createdAt` / `updatedAt` | timestamp | Set by the server |
 
 **`tourStops`** (the tour photos after the main photo)
@@ -151,6 +163,17 @@ Four Firestore collections. `tourStops`, `questions`, and `progress` each point 
 | `completed` | boolean | True once the best score is 60% or more |
 | `updatedAt` | timestamp | Set by the server |
 
+**`settings`** (one document, with the ID `app`)
+
+| Field | Type | Notes |
+|---|---|---|
+| `appName` | string | The name shown on the Home screen and in its header |
+| `label` | string | Small text above the name, such as `REGION IV-A`. Optional |
+| `intro` | string | The opening text on the Home screen |
+| `ownerName` | string | Shown as "Developed by" on the Sources and Credits screen. Optional |
+| `logo` | string | PNG as a base64 data URI, or empty for no logo |
+| `updatedAt` | timestamp | Set by the server |
+
 ### Image storage
 
 Firebase Storage requires the paid Blaze plan, so photos are stored **inside Firestore documents** as base64 text (`data:image/jpeg;base64,...`). A Firestore document can hold 1 MB, so:
@@ -164,6 +187,21 @@ All of this is in `utils/image.js`, so it can be swapped for Firebase Storage or
 ### 360° viewer
 
 A 360° photo is one wide picture that wraps around the viewer like the inside of a ball. `utils/panoramaHtml.js` builds a small web page that loads the open-source Pannellum viewer from a CDN, and `components/PanoramaViewer.js` shows that page in a WebView. It needs an internet connection, like the rest of the app.
+
+## Giving the app to a new owner
+
+The app is built so a school, a tourism office, or a company can take it over without rewriting it.
+
+| What to change | Where | Needs code? |
+|---|---|---|
+| App name, logo, opening text, owner name | In the app: Home → **App Settings** | No |
+| Destinations, photos, 360° photos, history, quiz questions, sources | In the app: each destination's **Edit**, **Tour Photos**, and **Quiz Questions** | No |
+| The database the app uses | The `.env` file: put in the new owner's Firebase settings | No, only that file |
+| The icon and name shown on the phone's home screen | `assets/icon.png` and `name` in `app.json`, then build the app again | A rebuild |
+| Colors | `constants/colors.js` | One file |
+| Categories and provinces | `constants/categories.js` and `constants/provinces.js` | One file each |
+
+The settings are saved in Firestore, so a change made on one phone shows on every phone the next time its Home screen opens.
 
 ## How to run
 
@@ -191,7 +229,7 @@ A 360° photo is one wide picture that wraps around the viewer like the inside o
    ```
 4. Scan the QR code. On Android, use the Expo Go app; on iPhone, use the Camera app. The phone and computer must be on the same Wi-Fi. If they can't connect, use `npx expo start --tunnel`.
 
-**Note on security:** this class project has no login. Its Firestore rules allow anyone with the app's settings to read and write until January 31, 2027, so it should not hold private data. Students should type a first name or nickname only.
+**Note on security:** this class project has no login, so anyone using the app can open App Settings and the edit screens. A real owner would add a login before release. Its Firestore rules allow anyone with the app's settings to read and write until January 31, 2027, so it should not hold private data. Students should type a first name or nickname only.
 
 ## Destination content
 

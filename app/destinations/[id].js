@@ -138,6 +138,21 @@ export default function DestinationDetailsScreen() {
           </>
         ) : null}
 
+        {destination.sources ? (
+          <>
+            <Text style={styles.label}>Sources</Text>
+            {/* The sources are saved as one text, with one source on each line */}
+            {destination.sources.split('\n').map((source, index) => (
+              <Text key={index} style={styles.source}>
+                • {source}
+              </Text>
+            ))}
+          </>
+        ) : null}
+        {destination.photoCredit ? (
+          <Text style={styles.source}>{destination.photoCredit}</Text>
+        ) : null}
+
         {/* The less-used buttons are small and share two rows, so they don't crowd the screen */}
         <Text style={styles.manageTitle}>Manage this destination</Text>
         <View style={styles.row}>
@@ -229,6 +244,11 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     color: colors.textLight,
     marginBottom: 4,
+  },
+  source: {
+    fontSize: 14,
+    lineHeight: 20,
+    color: colors.textLight,
   },
   link: {
     fontSize: 15,

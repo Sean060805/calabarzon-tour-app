@@ -1,7 +1,11 @@
 import { router, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { Platform, Pressable, StyleSheet, Text } from 'react-native';
 import colors from '../constants/colors';
+
+// From iOS 26, the iPhone puts header buttons inside a light "glass" circle.
+// White text can't be read on it, so the button text is green there and white everywhere else.
+const onGlass = Platform.OS === 'ios' && parseInt(Platform.Version, 10) >= 26;
 
 export default function RootLayout() {
   return (
@@ -37,6 +41,8 @@ export default function RootLayout() {
         <Stack.Screen name="destinations/quiz/[id]" options={{ title: 'Quiz' }} />
         <Stack.Screen name="destinations/questions/[id]" options={{ title: 'Quiz Questions' }} />
         <Stack.Screen name="progress" options={{ title: 'My Progress' }} />
+        <Stack.Screen name="credits" options={{ title: 'Sources and Credits' }} />
+        <Stack.Screen name="settings" options={{ title: 'App Settings' }} />
       </Stack>
     </>
   );
@@ -44,7 +50,7 @@ export default function RootLayout() {
 
 const styles = StyleSheet.create({
   headerButton: {
-    color: colors.white,
+    color: onGlass ? colors.primary : colors.white,
     fontSize: 16,
     fontWeight: 'bold',
   },
