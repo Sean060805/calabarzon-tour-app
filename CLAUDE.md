@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-**Status: the midterm (PLAN.md) is DONE and pushed. Project Phase 2 (PLAN-PHASE2.md): Steps 0 to 8 are BUILT and committed, but NOT yet tested on a phone and NOT pushed. Step 9 (content) is DONE: all 15 destinations are loaded in Firestore. Next: Klyde tests on the phone, then Claude explains each step line by line, then push. Open question: how to get more 360° photos (only Aguinaldo Shrine has one).**
+**Status: the midterm (PLAN.md) is DONE and pushed. Project Phase 2 (PLAN-PHASE2.md): Steps 0 to 8 are BUILT and committed, but NOT yet tested on a phone and NOT pushed. Step 9 (content) is DONE: all 15 destinations are loaded in Firestore. Next: Klyde tests on the phone, then Claude explains each step line by line, then push. Only Aguinaldo Shrine has a 360° photo inside the app; the other places use the Open 360° Street View button.**
 
 Update the status line above at the end of every step.
 
@@ -16,7 +16,8 @@ Update the status line above at the end of every step.
   - `node --env-file=../calabarzon-tour/.env load.js --check` (reads only)
   - `node --env-file=../calabarzon-tour/.env load.js --all` (loads all 15; safe to run twice)
   - `node --env-file=../calabarzon-tour/.env load.js --undo "Aguinaldo Shrine"` (removes what was loaded; `--undo --all` for everything)
-- **360° photos are the weak spot.** No free-to-use 360° photos of the 15 sites exist (searched Wikimedia Commons and KartaView). The one loaded is a KartaView street photo in front of the Aguinaldo Shrine. Ways to get more: Klyde or classmates take them (the app adds 360° photos from the gallery: Details → Tour Photos); a free Mapillary account and token would let Claude search more street-level 360° photos; or the teacher accepts the Open in Google Maps button for the rest. Never copy Google Street View images.
+- **Open 360° Street View button (Klyde chose this on 2026-11-16).** It is on Details and in the tour, for destinations that have a `coordinates` field ("latitude, longitude"; optional in the form). It opens `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=...`, which shows the Street View photo nearest to that point. All 15 have coordinates (sources in `docs/tour-content.md`). **Not yet checked on a phone:** if a place opens as a plain map or a far-away view, there is no Street View photo near its point; fix the coordinates with the app's Edit button and in `C:\Projects\phase2-content\coordinates.js`. Most at risk: Taal Volcano, Pagsanjan Falls, Masungi Georeserve, Corregidor Island.
+- **360° photos inside the app are the weak spot.** No free-to-use 360° photos of the 15 sites exist (searched Wikimedia Commons and KartaView). The one loaded is a KartaView street photo in front of the Aguinaldo Shrine. Ways to get more: Klyde or classmates take them (the app adds 360° photos from the gallery: Details → Tour Photos); a free Mapillary account and token would let Claude search more street-level 360° photos; or the teacher accepts the Open in Google Maps button for the rest. Never copy Google Street View images.
 - Checked and ruled out for 360°: the DOT/TPB "360° VR tours" site (tpb.pcitech.com.ph) is offline, and no official NHCP 360° tours were found for the Aguinaldo or Rizal museums.
 - Files beyond PLAN-PHASE2.md's first list, on purpose: `components/TourStopForm.js` and `utils/score.js`.
 

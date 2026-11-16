@@ -9,7 +9,8 @@ Built with React Native (Expo) and Firebase Cloud Firestore.
 ### Virtual tour
 - **360° view:** a tour stop can be a 360° photo. Drag to look around in every direction, as if standing there.
 - **Photos, history, and cultural significance:** each tour moves from stop to stop with Previous and Next, and shows the place's history and why it matters.
-- **Open in Google Maps:** one tap opens the place in Google Maps, which has Street View and visitors' 360° photos.
+- **Open 360° Street View:** one tap opens Google Maps already in Street View at the destination's coordinates, so every place can be looked around in 360°. The app only opens Google's photos; it does not copy them.
+- **Open in Google Maps:** finds the place on the map by its name and address.
 
 ### Educational quiz
 - **Multiple-choice quiz for each destination,** one question at a time, with "Correct!" or "Not quite." and a short explanation after each answer.
@@ -82,6 +83,7 @@ lib/
   firebase.js                Firebase setup (reads keys from .env)
 utils/
   image.js                   Pick and compress a normal or a 360° photo
+  maps.js                    Opens Google Maps and Street View
   panoramaHtml.js            Builds the small web page for the 360° viewer
   score.js                   Percent and pass/fail
   student.js                 Saves the student's name and ID on the phone
@@ -104,6 +106,7 @@ Four Firestore collections. `tourStops`, `questions`, and `progress` each point 
 | `history` | string | Required |
 | `significance` | string | Cultural significance. Required |
 | `address` | string | Required |
+| `coordinates` | string | Optional. Latitude and longitude, such as `14.445000, 120.906944`. Used by Open 360° Street View |
 | `province` | string | Cavite, Laguna, Batangas, Rizal, or Quezon |
 | `category` | string | Historical Site, Church / Religious Site, Museum, Nature & Park, Beach & Resort, Festival & Cultural Event, or Landmark |
 | `image` | string | Main photo: JPEG as a base64 data URI |

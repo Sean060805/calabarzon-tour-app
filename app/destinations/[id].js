@@ -1,10 +1,11 @@
 import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { Alert, Image, Linking, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import AppButton from '../../components/AppButton';
 import StatusView from '../../components/StatusView';
 import colors from '../../constants/colors';
 import { deleteDestination, getDestinationById } from '../../services/destinationService';
+import { openInGoogleMaps, openStreetView } from '../../utils/maps';
 
 export default function DestinationDetailsScreen() {
   const { id } = useLocalSearchParams();
@@ -35,14 +36,6 @@ export default function DestinationDetailsScreen() {
   function handleRetry() {
     setLoading(true);
     loadDestination();
-  }
-
-  // Opens the Google Maps app (or website) and searches for this place by name and address
-  function handleOpenMap() {
-    const search = encodeURIComponent(`${destination.name}, ${destination.address}`);
-    Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${search}`).catch(() => {
-      Alert.alert('Could not open Google Maps', 'Please try again.');
-    });
   }
 
   function handleDelete() {
@@ -95,6 +88,19 @@ export default function DestinationDetailsScreen() {
             onPress={() => router.push(`/destinations/tour/${id}`)}
           />
         </View>
+        {/* Only destinations with map coordinates have this button */}
+        {destination.coordinates ? (
+          <View style={styles.mainButton}>
+            <AppButton
+              title="Open 360° Street View"
+              variant="outline"
+              onPress={() => openStreetView(destination.coordinates)}
+            />
+            <Text style={styles.mapNote}>
+              Opens Google Maps, where you can look around the real place in 360°.
+            </Text>
+          </View>
+        ) : null}
         <View style={styles.mainButton}>
           <AppButton
             title="Take the Quiz"
@@ -106,11 +112,12 @@ export default function DestinationDetailsScreen() {
         <Text style={styles.label}>Address</Text>
         <Text style={styles.body}>{destination.address}</Text>
         <View style={styles.button}>
-          <AppButton title="Open in Google Maps" variant="outline" onPress={handleOpenMap} />
+          <AppButton
+            title="Open in Google Maps"
+            variant="outline"
+            onPress={() => openInGoogleMaps(destination)}
+          />
         </View>
-        <Text style={styles.mapNote}>
-          Google Maps has Street View and visitors' own 360° photos of many places.
-        </Text>
 
         <Text style={styles.label}>About</Text>
         <Text style={styles.body}>{destination.description}</Text>

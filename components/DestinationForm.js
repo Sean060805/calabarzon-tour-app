@@ -13,6 +13,7 @@ import CATEGORIES from '../constants/categories';
 import colors from '../constants/colors';
 import PROVINCES from '../constants/provinces';
 import { pickAndCompressImage } from '../utils/image';
+import { isValidCoordinates } from '../utils/maps';
 import AppButton from './AppButton';
 import Chip from './Chip';
 
@@ -24,6 +25,7 @@ export default function DestinationForm({ initialValues = {}, submitLabel, onSub
   const [history, setHistory] = useState(initialValues.history || '');
   const [significance, setSignificance] = useState(initialValues.significance || '');
   const [address, setAddress] = useState(initialValues.address || '');
+  const [coordinates, setCoordinates] = useState(initialValues.coordinates || '');
   const [province, setProvince] = useState(initialValues.province || '');
   const [category, setCategory] = useState(initialValues.category || '');
   const [image, setImage] = useState(initialValues.image || '');
@@ -52,6 +54,10 @@ export default function DestinationForm({ initialValues = {}, submitLabel, onSub
     if (!history.trim()) newErrors.history = 'Please enter the history.';
     if (!significance.trim()) newErrors.significance = 'Please enter the cultural significance.';
     if (!address.trim()) newErrors.address = 'Please enter an address.';
+    // Coordinates may be left empty, but if typed they must look like "14.2136, 121.1668"
+    if (coordinates.trim() && !isValidCoordinates(coordinates)) {
+      newErrors.coordinates = 'Please type two numbers with a comma between them.';
+    }
     if (!province) newErrors.province = 'Please choose a province.';
     if (!category) newErrors.category = 'Please choose a category.';
     if (!image) newErrors.image = 'Please pick a photo.';
@@ -74,6 +80,7 @@ export default function DestinationForm({ initialValues = {}, submitLabel, onSub
         history: history.trim(),
         significance: significance.trim(),
         address: address.trim(),
+        coordinates: coordinates.trim(),
         province,
         category,
         image,
@@ -138,6 +145,20 @@ export default function DestinationForm({ initialValues = {}, submitLabel, onSub
           onChangeText={setAddress}
           placeholder="e.g. F. Mercado St., Calamba, Laguna"
         />
+      </Field>
+
+      <Field label="Map coordinates (optional)" error={errors.coordinates}>
+        <TextInput
+          style={styles.input}
+          value={coordinates}
+          onChangeText={setCoordinates}
+          placeholder="e.g. 14.213677, 121.166827"
+          autoCorrect={false}
+        />
+        <Text style={styles.hint}>
+          Used by the "Open 360° Street View" button. In Google Maps, press and hold on the place,
+          then copy the two numbers it shows.
+        </Text>
       </Field>
 
       <Field label="Province" error={errors.province}>
@@ -242,6 +263,12 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 8,
     marginBottom: 12,
+  },
+  hint: {
+    fontSize: 13,
+    lineHeight: 18,
+    color: colors.textLight,
+    marginTop: 6,
   },
   error: {
     color: colors.danger,

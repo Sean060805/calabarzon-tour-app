@@ -7,6 +7,7 @@ import TourStopView from '../../../components/TourStopView';
 import colors from '../../../constants/colors';
 import { getDestinationById } from '../../../services/destinationService';
 import { getTourStops } from '../../../services/tourService';
+import { openStreetView } from '../../../utils/maps';
 
 export default function VirtualTourScreen() {
   const { id } = useLocalSearchParams();
@@ -106,6 +107,20 @@ export default function VirtualTourScreen() {
         <Text style={styles.caption}>{stop.caption}</Text>
         {stop.credit ? <Text style={styles.credit}>{stop.credit}</Text> : null}
 
+        {/* Only destinations with map coordinates have this button */}
+        {destination.coordinates ? (
+          <View style={styles.streetView}>
+            <AppButton
+              title="Open 360° Street View"
+              variant="outline"
+              onPress={() => openStreetView(destination.coordinates)}
+            />
+            <Text style={styles.credit}>
+              Opens Google Maps, where you can look around the real place in 360°.
+            </Text>
+          </View>
+        ) : null}
+
         <Text style={styles.label}>History</Text>
         <Text style={styles.body}>
           {destination.history || 'No history has been written for this destination yet.'}
@@ -184,6 +199,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     color: colors.text,
+  },
+  streetView: {
+    marginTop: 16,
   },
   quizButton: {
     marginTop: 28,

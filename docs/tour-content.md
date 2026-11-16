@@ -658,6 +658,32 @@ This is the Phase 2 text for the 15 destinations: **History**, **Cultural Signif
 
 ---
 
+## Map coordinates (for the Open 360° Street View button)
+
+The button opens Google Maps at the Street View photo nearest to these points. The photos belong to Google and its contributors; the app only opens them and does not copy them.
+
+| Destination | Coordinates | Source |
+|---|---|---|
+| Aguinaldo Shrine | 14.445000, 120.906944 | Wikipedia: Aguinaldo Shrine |
+| Corregidor Island | 14.387550, 120.589280 | Wikipedia: Malinta Tunnel |
+| Bonifacio Trial House | 14.274281, 120.736977 | Wikipedia: Bonifacio Trial House |
+| Rizal Shrine | 14.213677, 121.166827 | Wikipedia: Rizal Shrine (Calamba) |
+| Pagsanjan Falls | 14.262589, 121.499961 | Wikipedia: Pagsanjan Falls |
+| Nagcarlan Underground Cemetery | 14.131350, 121.414820 | Wikipedia: Nagcarlan Underground Cemetery |
+| Taal Heritage Town | 13.878467, 120.918072 | OpenStreetMap: Marcela Agoncillo Historical Landmark |
+| Basilica of St. Martin de Tours | 13.880705, 120.924819 | Wikipedia: Taal Basilica |
+| Taal Volcano | 14.010000, 120.997500 | Wikipedia: Taal Volcano |
+| Hinulugang Taktak | 14.594722, 121.167500 | Wikipedia: Hinulugang Taktak |
+| Antipolo Cathedral | 14.587500, 121.176757 | Wikipedia: Antipolo Cathedral |
+| Masungi Georeserve | 14.605000, 121.338611 | Wikipedia: Masungi Georeserve |
+| Kamay ni Hesus Shrine | 14.101765, 121.572977 | OpenStreetMap: Kamay ni Hesus |
+| Pahiyas Festival | 14.114846, 121.553686 | Wikipedia: Lucban Church (the festival streets are around it) |
+| Quezon Provincial Capitol | 13.928487, 121.613302 | OpenStreetMap: Quezon Provincial Capitol |
+
+- **Check:** tap the button for each destination on the phone. If Google Maps shows a plain map, or a view far from the place, there is no Street View photo close to that point: change the coordinates with the app's Edit button.
+
+---
+
 ## 360° photos
 
 A search on November 16, 2026 found no free-to-use 360° photos taken inside or right at the 15 sites. Wikimedia Commons has none. KartaView (open street-level photos) has a few near Kawit, Calamba, and Antipolo only. Google Street View photos may not be copied into an app.

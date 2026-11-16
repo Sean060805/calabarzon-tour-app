@@ -67,7 +67,7 @@ The first time a student opens a quiz or My Progress, the app asks for a name.
 A search on 2026-11-16 found **no free-to-use 360° photos of the 15 sites themselves** (Wikimedia Commons has none; KartaView has a few street-level ones near Kawit, Calamba, and Antipolo only). Google Street View photos may not be copied into an app. So:
 
 - The app can **add a 360° photo from the phone's gallery** (Step 3). Any 360° photo works: one taken with a phone's "Photo Sphere" or panorama-360 camera mode, a 360° camera, or a file the teacher provides.
-- Details has an **Open in Google Maps** button, where Street View and visitor 360° photos of the place can be seen (Step 8).
+- Details and the tour have an **Open 360° Street View** button (chosen by Klyde on 2026-11-16). It opens Google Maps already in Street View at the destination's `coordinates`, so all 15 places have a 360° view. It only opens Google's photos; it does not copy them.
 - Never use a 360° photo without a license that allows it. Record every credit in `docs/tour-content.md`.
 
 ---
@@ -82,6 +82,7 @@ In MySQL terms: three new tables, each with a foreign key to `destinations`.
 |---|---|---|
 | `history` | string (required) | `Built in 1845 by Emilio Aguinaldo's family...` |
 | `significance` | string (required) | `The place where the Philippine flag was first...` |
+| `coordinates` | string (optional): latitude, longitude | `14.445000, 120.906944` |
 
 **`tourStops`** (new: the tour photos after the main one)
 
@@ -149,6 +150,7 @@ services/
 utils/
 ├── panoramaHtml.js              ← builds the small web page for the 360° viewer
 ├── score.js                     ← percent and pass/fail
+├── maps.js                      ← opens Google Maps and Street View
 └── student.js                   ← get and save the name + ID on the phone
 constants/
 └── quiz.js                      ← pass mark (60%)
@@ -203,6 +205,7 @@ Each step uses the same loop as the midterm: **build, run on phone, explain line
 #### Step 8: Polish
 - Deleting a destination also deletes its `tourStops`, `questions`, and `progress` (like `ON DELETE CASCADE`, done by hand).
 - "✓ Completed" tag on the cards in the list. **Open in Google Maps** button on Details.
+- **Open 360° Street View** button on Details and in the tour, with an optional `coordinates` field in the form.
 - Update `README.md` and CLAUDE.md.
 
 #### Step 9: Real content (Claude does the tedious part)
@@ -222,6 +225,7 @@ Each step uses the same loop as the midterm: **build, run on phone, explain line
 
 - [ ] Every one of the 15 destinations has a tour with photos, history, and cultural significance.
 - [ ] A 360° stop can be dragged in every direction on Android and iPhone.
+- [ ] **Open 360° Street View** shows a 360° view at or near the place, for each of the 15 destinations.
 - [ ] Adding a 360° photo from the gallery works; a photo that is not 2:1 is refused with a clear message.
 - [ ] Every destination has a 5-question quiz; each answer can be found in the tour text.
 - [ ] The score shown matches the answers given (try 0 of 5, 3 of 5, and 5 of 5).
