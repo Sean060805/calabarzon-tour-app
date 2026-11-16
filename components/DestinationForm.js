@@ -21,6 +21,8 @@ import Chip from './Chip';
 export default function DestinationForm({ initialValues = {}, submitLabel, onSubmit }) {
   const [name, setName] = useState(initialValues.name || '');
   const [description, setDescription] = useState(initialValues.description || '');
+  const [history, setHistory] = useState(initialValues.history || '');
+  const [significance, setSignificance] = useState(initialValues.significance || '');
   const [address, setAddress] = useState(initialValues.address || '');
   const [province, setProvince] = useState(initialValues.province || '');
   const [category, setCategory] = useState(initialValues.category || '');
@@ -47,6 +49,8 @@ export default function DestinationForm({ initialValues = {}, submitLabel, onSub
     const newErrors = {};
     if (!name.trim()) newErrors.name = 'Please enter a name.';
     if (!description.trim()) newErrors.description = 'Please enter a description.';
+    if (!history.trim()) newErrors.history = 'Please enter the history.';
+    if (!significance.trim()) newErrors.significance = 'Please enter the cultural significance.';
     if (!address.trim()) newErrors.address = 'Please enter an address.';
     if (!province) newErrors.province = 'Please choose a province.';
     if (!category) newErrors.category = 'Please choose a category.';
@@ -67,6 +71,8 @@ export default function DestinationForm({ initialValues = {}, submitLabel, onSub
       await onSubmit({
         name: name.trim(),
         description: description.trim(),
+        history: history.trim(),
+        significance: significance.trim(),
         address: address.trim(),
         province,
         category,
@@ -101,6 +107,26 @@ export default function DestinationForm({ initialValues = {}, submitLabel, onSub
           value={description}
           onChangeText={setDescription}
           placeholder="What is this place known for?"
+          multiline
+        />
+      </Field>
+
+      <Field label="History" error={errors.history}>
+        <TextInput
+          style={[styles.input, styles.multiline]}
+          value={history}
+          onChangeText={setHistory}
+          placeholder="What happened here, and when?"
+          multiline
+        />
+      </Field>
+
+      <Field label="Cultural Significance" error={errors.significance}>
+        <TextInput
+          style={[styles.input, styles.multiline]}
+          value={significance}
+          onChangeText={setSignificance}
+          placeholder="Why does this place matter to Filipinos today?"
           multiline
         />
       </Field>

@@ -87,6 +87,21 @@ export default function DestinationDetailsScreen() {
         <Text style={styles.label}>About</Text>
         <Text style={styles.body}>{destination.description}</Text>
 
+        {/* Older destinations may not have these two fields yet, so only show them if filled in */}
+        {destination.history ? (
+          <>
+            <Text style={styles.label}>History</Text>
+            <Text style={styles.body}>{destination.history}</Text>
+          </>
+        ) : null}
+
+        {destination.significance ? (
+          <>
+            <Text style={styles.label}>Cultural Significance</Text>
+            <Text style={styles.body}>{destination.significance}</Text>
+          </>
+        ) : null}
+
         <View style={styles.button}>
           <AppButton title="Edit" onPress={() => router.push(`/destinations/edit/${id}`)} />
         </View>
